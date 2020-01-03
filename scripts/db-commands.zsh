@@ -10,3 +10,6 @@ dotnet ef database update -p ./Skinshare.Data -s ./Skinshare.Web
 # Run seed command
 dotnet ef database drop -p ./Skinshare.Data -s ./Skinshare.Web && dotnet run -p Skinshare.Seed
 
+# Generate Razor Pages
+
+dotnet aspnet-codegenerator razorpage -m Routine -dc Skinshare.Data.RoutineContext -udl -outDir Pages/Generated --referenceScriptLibraries

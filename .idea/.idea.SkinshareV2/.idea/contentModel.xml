@@ -37,6 +37,8 @@
         <e p="Migrations" t="Include">
           <e p="20200102061459_createDb.cs" t="Include" />
           <e p="20200102061459_createDb.Designer.cs" t="Include" />
+          <e p="20200103060441_identifier-unique.cs" t="Include" />
+          <e p="20200103060441_identifier-unique.Designer.cs" t="Include" />
           <e p="RoutineContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -92,10 +94,34 @@
           <e p="_ViewStart.cshtml" t="Include" />
           <e p="Error.cshtml" t="Include" />
           <e p="Error.cshtml.cs" t="Include" />
+          <e p="Generated" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Create.cshtml.cs" t="Include" />
+            <e p="Delete.cshtml" t="Include" />
+            <e p="Delete.cshtml.cs" t="Include" />
+            <e p="Details.cshtml" t="Include" />
+            <e p="Details.cshtml.cs" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Edit.cshtml.cs" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Index.cshtml.cs" t="Include" />
+          </e>
           <e p="Index.cshtml" t="Include" />
           <e p="Index.cshtml.cs" t="Include" />
           <e p="Privacy.cshtml" t="Include" />
           <e p="Privacy.cshtml.cs" t="Include" />
+          <e p="Routines" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Create.cshtml.cs" t="Include" />
+            <e p="Delete.cshtml" t="Include" />
+            <e p="Delete.cshtml.cs" t="Include" />
+            <e p="Details.cshtml" t="Include" />
+            <e p="Details.cshtml.cs" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Edit.cshtml.cs" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Index.cshtml.cs" t="Include" />
+          </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />
             <e p="_ValidationScriptsPartial.cshtml" t="Include" />

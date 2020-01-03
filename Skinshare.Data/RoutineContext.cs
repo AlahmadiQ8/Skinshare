@@ -24,12 +24,12 @@ namespace Skinshare.Data
                 modelBuilder.Entity(entityType.Name).Property<DateTime>("LastModified");
             }
 
-            modelBuilder.Entity<Routine>().HasIndex(r => r.Identifier);
+            modelBuilder.Entity<Routine>().HasIndex(r => r.Identifier).IsUnique();
             
             base.OnModelCreating(modelBuilder);
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries()
                 .Where(e => e.State == EntityState.Added ||
@@ -44,15 +44,20 @@ namespace Skinshare.Data
                         entry.Property("LastModified").CurrentValue = DateTime.UtcNow;
                         break;
                 }
-
+                
+                if (!(entry.Entity is Routine routine) || entry.State != EntityState.Added) continue;
+                
                 // TODO: figure out a way to abstract the implementation of the identifier
-                if (entry.Entity is Routine routine && entry.State == EntityState.Added)
+                var uniqueId = Guid.NewGuid().ToString()[..8];
+                while (await Set<Routine>().AnyAsync(r => r.Identifier == uniqueId, cancellationToken))
                 {
-                    routine.Identifier = Guid.NewGuid().ToString();
+                    uniqueId = Guid.NewGuid().ToString()[..8];
                 }
+
+                routine.Identifier = uniqueId;
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }

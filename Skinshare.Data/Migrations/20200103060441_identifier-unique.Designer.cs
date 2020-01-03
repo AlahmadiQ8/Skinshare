@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Skinshare.Data;
@@ -9,9 +10,10 @@ using Skinshare.Data;
 namespace Skinshare.Data.Migrations
 {
     [DbContext(typeof(RoutineContext))]
-    partial class RoutineContextModelSnapshot : ModelSnapshot
+    [Migration("20200103060441_identifier-unique")]
+    partial class identifierunique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
