@@ -8,12 +8,14 @@ namespace Skinshare.Core.Entities
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(300)]
         public string Description { get; set; }
 
         [Required]
         public int Order { get; set; }
 
         [Required]
+        [MaxLength(10)]
         public string PartOfDay { get; set; }
 
         public int RoutineId { get; set; }
