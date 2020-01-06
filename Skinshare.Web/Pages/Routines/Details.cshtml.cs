@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Skinshare.Core.Entities;
+using Skinshare.Core.Interfaces;
+using Skinshare.Core.Misc;
 using Skinshare.Data;
 
 namespace Skinshare.Web.Pages.Routines
@@ -20,15 +22,30 @@ namespace Skinshare.Web.Pages.Routines
         }
 
         public Routine Routine { get; set; }
+        public IEnumerable<Step> MorningSteps { get; set; }
+        public IEnumerable<Step> EveningSteps { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string identifier)
         {
-            Routine = await _context.Routines.AsNoTracking().FirstOrDefaultAsync(m => m.Identifier == identifier);
+            Routine = await _context.Routines.Include(r => r.Steps).AsNoTracking().FirstOrDefaultAsync(r => r.Identifier == identifier);
 
             if (Routine == null)
             {
                 return NotFound();
             }
+
+            MorningSteps = Routine.Steps.Where(s => s.PartOfDay == PartOfDay.Morning).Select(s =>
+            {
+                s.Order += 1;
+                return s;
+            }).OrderBy(s => s.Order);
+
+            EveningSteps = Routine.Steps.Where(s => s.PartOfDay == PartOfDay.Evening).Select(s =>
+            {
+                s.Order += 1;
+                return s;
+            }).OrderBy(s => s.Order);
+
             return Page();
         }
     }

@@ -61,12 +61,12 @@ namespace Skinshare.Seed
                         new Step {Order = 1, Description = "Active - Melano CC Vitamin C Serum", PartOfDay = PartOfDay.Morning},
                         new Step {Order = 2, Description = "Essence - CosRX 96 Snail Mucin Power Essence", PartOfDay = PartOfDay.Morning},
                         new Step {Order = 3, Description = "Moisturizer - Cerave Moisturising Cream", PartOfDay = PartOfDay.Morning},
-                        new Step {Order = 3, Description = "Sunscreen - Biore UV Watery Essence SPF50", PartOfDay = PartOfDay.Morning},
+                        new Step {Order = 4, Description = "Sunscreen - Biore UV Watery Essence SPF50", PartOfDay = PartOfDay.Morning},
                         new Step {Order = 0, Description = "Cleanser - CeraVe Hydrating Facial Cleanser", PartOfDay = PartOfDay.Evening},
-                        new Step {Order = 2, Description = "Active - AHA", PartOfDay = PartOfDay.Evening},
+                        new Step {Order = 1, Description = "Active - AHA", PartOfDay = PartOfDay.Evening},
                         new Step {Order = 2, Description = "Essence - CosRX 96 Snail Mucin Power Essence", PartOfDay = PartOfDay.Evening},
-                        new Step {Order = 1, Description = "Moisturize: Cerave Basic Moisturizer", PartOfDay = PartOfDay.Evening},
-                        new Step {Order = 1, Description = "Optional - Feeling Cute? NEed some extra moisture? Grab a sheet mask", PartOfDay = PartOfDay.Evening},
+                        new Step {Order = 3, Description = "Moisturize: Cerave Basic Moisturizer", PartOfDay = PartOfDay.Evening},
+                        new Step {Order = 4, Description = "Optional - Feeling Cute? NEed some extra moisture? Grab a sheet mask", PartOfDay = PartOfDay.Evening},
                     }
                 },
             };

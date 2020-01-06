@@ -9,7 +9,7 @@
 
 <div>
     <h4>Routine</h4>
-    <hr />
+    <hr/>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Routine.Title)
@@ -29,6 +29,32 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Routine.Identifier)
         </dd>
+    </dl>
+    <hr/>
+    <h3>Steps</h3>
+    <h4>Morning</h4>
+    <dl class="row">
+        @foreach (var step in @Model.MorningSteps)
+        {
+            <dt class="col-sm-1">
+                Step @Html.DisplayFor(_ => step.Order)
+            </dt>
+            <dd class="col-sm-11">
+                @Html.DisplayFor(_ => step.Description)
+            </dd>
+        }
+    </dl>    
+    <h4>Evning</h4>
+    <dl class="row">
+        @foreach (var step in @Model.EveningSteps)
+        {
+            <dt class="col-sm-1">
+                Step @Html.DisplayFor(_ => step.Order)
+            </dt>
+            <dd class="col-sm-11">
+                @Html.DisplayFor(_ => step.Description)
+            </dd>
+        }
     </dl>
 </div>
 <div>
