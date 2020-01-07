@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Skinshare.Core.Entities;
-using Skinshare.Core.Misc;
 using Skinshare.Data;
 
 namespace Skinshare.Seed

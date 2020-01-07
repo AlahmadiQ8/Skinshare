@@ -1,4 +1,5 @@
 @page "/Routine/{identifier}"
+@using Skinshare.Core.Entities
 @model Skinshare.Web.Pages.Routines.DetailsModel
 
 @{
@@ -32,30 +33,38 @@
     </dl>
     <hr/>
     <h3>Steps</h3>
-    <h4>Morning</h4>
-    <dl class="row">
-        @foreach (var step in @Model.MorningSteps)
-        {
-            <dt class="col-sm-1">
-                Step @Html.DisplayFor(_ => step.Order)
-            </dt>
-            <dd class="col-sm-11">
-                @Html.DisplayFor(_ => step.Description)
-            </dd>
-        }
-    </dl>    
-    <h4>Evning</h4>
-    <dl class="row">
-        @foreach (var step in @Model.EveningSteps)
-        {
-            <dt class="col-sm-1">
-                Step @Html.DisplayFor(_ => step.Order)
-            </dt>
-            <dd class="col-sm-11">
-                @Html.DisplayFor(_ => step.Description)
-            </dd>
-        }
-    </dl>
+
+    @if (Model.MorningSteps.Any())
+    {
+        <h4>@Html.DisplayFor(m => m.MorningSteps.FirstOrDefault().PartOfDay)</h4>
+        <dl class="row">
+            @foreach (var step in @Model.MorningSteps)
+            {
+                <dt class="col-sm-1">
+                    Step @Html.DisplayFor(_ => step.Order)
+                </dt>
+                <dd class="col-sm-11">
+                    @Html.DisplayFor(_ => step.Description)
+                </dd>
+            }
+        </dl>
+    }
+
+    @if (Model.EveningSteps.Any())
+    {
+        <h4>@Html.DisplayFor(m => m.EveningSteps.FirstOrDefault().PartOfDay)</h4>
+        <dl class="row">
+            @foreach (var step in @Model.EveningSteps)
+            {
+                <dt class="col-sm-1">
+                    Step @Html.DisplayFor(_ => step.Order)
+                </dt>
+                <dd class="col-sm-11">
+                    @Html.DisplayFor(_ => step.Description)
+                </dd>
+            }
+        </dl>
+    }
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Routine.Id">Edit</a> |

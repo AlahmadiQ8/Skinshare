@@ -3,6 +3,14 @@ using Skinshare.Core.Interfaces;
 
 namespace Skinshare.Core.Entities
 {
+    public enum PartOfDay : byte
+    {
+        [Display(Name = "Morning")]
+        Morning = 10,
+        [Display(Name = "Evening")]
+        Evening = 20,
+    }
+
     public class Step : IEntity
     {
         public int Id { get; set; }
@@ -15,8 +23,7 @@ namespace Skinshare.Core.Entities
         public int Order { get; set; }
 
         [Required]
-        [MaxLength(10)]
-        public string PartOfDay { get; set; }
+        public PartOfDay PartOfDay { get; set; }
 
         public int RoutineId { get; set; }
 

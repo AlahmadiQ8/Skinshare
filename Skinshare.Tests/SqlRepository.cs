@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Skinshare.Core.Entities;
-using Skinshare.Core.Misc;
 using Skinshare.Data;
 using Xunit;
 
