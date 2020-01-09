@@ -4,6 +4,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Skinshare.Core.Entities;
 using Skinshare.Data;
+using Skinshare.Data.Services;
 using Xunit;
 
 namespace Skinshare.Tests

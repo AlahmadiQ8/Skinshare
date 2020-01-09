@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Skinshare.Core.Entities;
 using Skinshare.Data;
+using Skinshare.Data.Services;
 
 namespace Skinshare.Seed
 {

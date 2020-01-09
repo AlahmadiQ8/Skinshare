@@ -53,10 +53,10 @@
         <e p="RoutineContext.cs" t="Include" />
         <e p="Services" t="Include">
           <e p="RoutineService.cs" t="Include" />
+          <e p="SqlRepository.cs" t="Include" />
           <e p="StepService.cs" t="Include" />
         </e>
         <e p="Skinshare.Data.csproj" t="IncludeRecursive" />
-        <e p="SqlRepository.cs" t="Include" />
       </e>
       <e p="Skinshare.Seed" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />

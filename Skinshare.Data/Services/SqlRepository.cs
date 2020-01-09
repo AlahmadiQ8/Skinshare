@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Skinshare.Core.Interfaces;
 using Skinshare.Data.Interfaces;
 
-namespace Skinshare.Data
+namespace Skinshare.Data.Services
 {
     public class SqlRepository<T> : IAsyncRepository<T> where T : class, IEntity
     {
