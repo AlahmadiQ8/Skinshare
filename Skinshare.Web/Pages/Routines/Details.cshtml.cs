@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Skinshare.Core.Entities;
 using Skinshare.Data;
+using Skinshare.Data.Interfaces;
 
 namespace Skinshare.Web.Pages.Routines
 {
     public class DetailsModel : PageModel
     {
-        private readonly RoutineContext _context;
+        private readonly IRoutineService _routineService;
+        private readonly IStepService _stepService;
 
-        public DetailsModel(RoutineContext context)
+        public DetailsModel(RoutineContext context, IRoutineService routineService, IStepService stepService)
         {
-            _context = context;
+            _routineService = routineService;
+            _stepService = stepService;
         }
 
         public Routine Routine { get; set; }
@@ -25,24 +28,16 @@ namespace Skinshare.Web.Pages.Routines
 
         public async Task<IActionResult> OnGetAsync(string identifier)
         {
-            Routine = await _context.Routines.Include(r => r.Steps).AsNoTracking().FirstOrDefaultAsync(r => r.Identifier == identifier);
+            Routine = await _routineService.GetRoutine(identifier);
 
             if (Routine == null)
             {
                 return NotFound();
             }
 
-            MorningSteps = Routine.Steps.Where(s => s.PartOfDay == PartOfDay.Morning).Select(s =>
-            {
-                s.Order += 1;
-                return s;
-            }).OrderBy(s => s.Order);
+            MorningSteps = _stepService.GetSteps(Routine, PartOfDay.Morning);
 
-            EveningSteps = Routine.Steps.Where(s => s.PartOfDay == PartOfDay.Evening).Select(s =>
-            {
-                s.Order += 1;
-                return s;
-            }).OrderBy(s => s.Order);
+            EveningSteps = _stepService.GetSteps(Routine, PartOfDay.Evening);
 
             return Page();
         }

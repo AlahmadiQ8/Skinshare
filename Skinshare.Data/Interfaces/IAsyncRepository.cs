@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Skinshare.Core.Interfaces;
 
-namespace Skinshare.Data
+namespace Skinshare.Data.Interfaces
 {
     public interface IAsyncRepository<T> where T : IEntity
     {

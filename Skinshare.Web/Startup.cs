@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Skinshare.Data;
+using Skinshare.Data.Interfaces;
+using Skinshare.Data.Services;
 
 namespace Skinshare.Web
 {
@@ -28,6 +30,8 @@ namespace Skinshare.Web
             services.AddRazorPages();
             services.AddDbContextPool<RoutineContext>(options => { options.UseNpgsql(Configuration.GetConnectionString("Skinshare")); });
             services.AddScoped(typeof(IAsyncRepository<>), typeof(SqlRepository<>));
+            services.AddScoped<IRoutineService, RoutineService>();
+            services.AddScoped<IStepService, StepService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

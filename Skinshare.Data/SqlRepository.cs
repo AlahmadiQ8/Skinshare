@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Skinshare.Core.Interfaces;
+using Skinshare.Data.Interfaces;
 
 namespace Skinshare.Data
 {
