@@ -28,7 +28,7 @@ namespace Skinshare.Web.Pages.Routines
 
         public async Task<IActionResult> OnGetAsync(string identifier)
         {
-            Routine = await _routineService.GetRoutine(identifier);
+            Routine = await _routineService.FindAsync(identifier);
 
             if (Routine == null)
             {

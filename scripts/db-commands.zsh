@@ -13,3 +13,4 @@ dotnet ef database drop -p ./Skinshare.Data -s ./Skinshare.Web && dotnet run -p 
 # Generate Razor Pages
 
 dotnet aspnet-codegenerator razorpage -m Routine -dc Skinshare.Data.RoutineContext -udl -outDir Pages/Generated --referenceScriptLibraries
+dotnet aspnet-codegenerator controller -name RoutinesController -async -api -m Skinshare.Core.Entities.Routine -dc Skinshare.Data.RoutineContext -outDir Controllers
