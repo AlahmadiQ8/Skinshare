@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Skinshare.Data;
@@ -31,6 +34,7 @@ namespace Skinshare.Web
         {
             services.AddRazorPages();
             services.AddControllers().AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
+            services.AddSwaggerDocument();
             services.AddHealthChecks();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
@@ -61,6 +65,9 @@ namespace Skinshare.Web
                 app.UseSpaStaticFiles();
             }
 
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+
             app.UseRouting();
 
             // app.UseAuthorization();
@@ -74,18 +81,29 @@ namespace Skinshare.Web
                 endpoints.MapHealthChecks("/health");
             });
 
-            app.UseSpa(spa =>
+            app.MapWhen(x => x.Request.Path.Value.StartsWith("/app"), builder =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
+                builder.UseSpa(spa =>
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+                    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                    // see https://go.microsoft.com/fwlink/?linkid=864501
+                    spa.Options.SourcePath = "ClientApp";
+                    if (env.IsDevelopment())
+                    {
+                        // spa.UseAngularCliServer(npmScript: "start");
+                        spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    }
+                });
             });
+
+            if (env.IsDevelopment())
+            {
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = null;
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                });
+            }
         }
     }
 }
