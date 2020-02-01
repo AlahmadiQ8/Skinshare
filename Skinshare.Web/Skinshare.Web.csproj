@@ -52,12 +52,15 @@
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     </Target>
 
-    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <Target Name="BuildAssetPartials" BeforeTargets="Build">
         <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+        <Exec Command="source scripts/generate-clientapp-assets.zsh" />
+    </Target>
 
+    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
         <!-- Include the newly-built files in the publish output -->
         <ItemGroup>
             <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />

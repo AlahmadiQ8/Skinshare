@@ -32,6 +32,8 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+        <hr/>
+        <app-root></app-root>
     </div>
 </div>
 
@@ -39,6 +41,21 @@
     <a asp-page="Index">Back to List</a>
 </div>
 
+@section StyleSheets {
+    <environment include="Development">
+        @{await Html.RenderPartialAsync("_AppStyleSheets");}
+    </environment>
+    <environment exclude="Development">
+        @{await Html.RenderPartialAsync("_AppStyleSheetsProd");}
+    </environment>
+}
+
 @section Scripts {
+    <environment include="Development">
+        @{await Html.RenderPartialAsync("_AppScripts");}
+    </environment>
+    <environment exclude="Development">
+        @{await Html.RenderPartialAsync("_AppScriptsProd");}
+    </environment>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
