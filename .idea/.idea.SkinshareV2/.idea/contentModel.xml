@@ -96,8 +96,8 @@
           <e p="dist" t="Include">
             <e p="3rdpartylicenses.txt" t="Include" />
             <e p="index.html" t="Include" />
-            <e p="main-es2015.7d79d7b4fe77f5d44f5b.js" t="Include" />
-            <e p="main-es5.7d79d7b4fe77f5d44f5b.js" t="Include" />
+            <e p="main-es2015.50f6f8004d25a8fe7dc6.js" t="Include" />
+            <e p="main-es5.50f6f8004d25a8fe7dc6.js" t="Include" />
             <e p="polyfills-es2015.2987770fde9daa1d8a2e.js" t="Include" />
             <e p="polyfills-es5.df1101cc1e7b588877f8.js" t="Include" />
             <e p="runtime-es2015.edb2fcf2778e7bf1d426.js" t="Include" />
@@ -258,11 +258,6 @@
               <e p="home" t="Include">
                 <e p="home.component.html" t="Include" />
                 <e p="home.component.ts" t="Include" />
-              </e>
-              <e p="nav-menu" t="Include">
-                <e p="nav-menu.component.css" t="Include" />
-                <e p="nav-menu.component.html" t="Include" />
-                <e p="nav-menu.component.ts" t="Include" />
               </e>
             </e>
             <e p="assets" t="Include">

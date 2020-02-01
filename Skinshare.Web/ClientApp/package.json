@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --deployUrl=/ClientApp/dist",
-    "build": "ng build",
-    "build:ssr": "ng run Skinshare.Web:server:dev",
+    "start": "ng serve --deployUrl=/ClientApp/dist/",
+    "build": "ng build --deployUrl=/ClientApp/dist/",
+    "build:ssr": "ng run Skinshare.Web:server:dev --deployUrl=/ClientApp/dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

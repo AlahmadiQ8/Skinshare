@@ -12,3 +12,4 @@ scripts=$(echo $scripts | sed 's/<\/body>//g' );
 
 echo $styleSheets > "$pathToPartials/_AppStyleSheetsProd.cshtml";
 echo $scripts  > "$pathToPartials/_AppScriptsProd.cshtml"
+echo "Created prod prartials for _AppStyleSheetsProd.cshtml & _AppScriptsProd.cshtml";

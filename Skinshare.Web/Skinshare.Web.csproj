@@ -52,7 +52,7 @@
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     </Target>
 
-    <Target Name="BuildAssetPartials" BeforeTargets="Build">
+    <Target Name="BuildAssetPartials" BeforeTargets="Compile">
         <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
