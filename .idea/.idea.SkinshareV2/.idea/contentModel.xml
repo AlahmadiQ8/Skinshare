@@ -93,17 +93,6 @@
           <e p=".gitignore" t="Include" />
           <e p="angular.json" t="Include" />
           <e p="browserslist" t="Include" />
-          <e p="dist" t="Include">
-            <e p="3rdpartylicenses.txt" t="Include" />
-            <e p="index.html" t="Include" />
-            <e p="main-es2015.50f6f8004d25a8fe7dc6.js" t="Include" />
-            <e p="main-es5.50f6f8004d25a8fe7dc6.js" t="Include" />
-            <e p="polyfills-es2015.2987770fde9daa1d8a2e.js" t="Include" />
-            <e p="polyfills-es5.df1101cc1e7b588877f8.js" t="Include" />
-            <e p="runtime-es2015.edb2fcf2778e7bf1d426.js" t="Include" />
-            <e p="runtime-es5.edb2fcf2778e7bf1d426.js" t="Include" />
-            <e p="styles.bc4f0c7db4d7b8beb9cf.css" t="Include" />
-          </e>
           <e p="e2e" t="Include">
             <e p="protractor.conf.js" t="Include" />
             <e p="src" t="Include">
@@ -245,11 +234,16 @@
               <e p="app.component.ts" t="Include" />
               <e p="app.generated.ts" t="Include" />
               <e p="app.module.ts" t="Include" />
-              <e p="app.server.module.ts" t="Include" />
               <e p="counter" t="Include">
                 <e p="counter.component.html" t="Include" />
                 <e p="counter.component.spec.ts" t="Include" />
                 <e p="counter.component.ts" t="Include" />
+              </e>
+              <e p="create-routine" t="Include">
+                <e p="create-routine.component.css" t="Include" />
+                <e p="create-routine.component.html" t="Include" />
+                <e p="create-routine.component.spec.ts" t="Include" />
+                <e p="create-routine.component.ts" t="Include" />
               </e>
               <e p="fetch-data" t="Include">
                 <e p="fetch-data.component.html" t="Include" />
@@ -283,7 +277,6 @@
         </e>
         <e p="Controllers" t="Include">
           <e p="RoutinesController.cs" t="Include" />
-          <e p="WeatherForecastController.cs" t="Include" />
         </e>
         <e p="nswag.json" t="Include" />
         <e p="obj" t="ExcludeRecursive">
@@ -345,7 +338,6 @@
         </e>
         <e p="Skinshare.Web.csproj" t="IncludeRecursive" />
         <e p="Startup.cs" t="Include" />
-        <e p="WeatherForecast.cs" t="Include" />
         <e p="wwwroot" t="Include">
           <e p="css" t="Include">
             <e p="site.css" t="Include" />

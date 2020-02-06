@@ -9,7 +9,7 @@
       "defaultUrlTemplate": "api/{controller}/{id?}",
       "addMissingPathParameters": false,
       "includedVersions": null,
-      "defaultPropertyNameHandling": "Default",
+      "defaultPropertyNameHandling": "CamelCase",
       "defaultReferenceTypeNullHandling": "Null",
       "defaultDictionaryValueReferenceTypeNullHandling": "NotNull",
       "defaultResponseReferenceTypeNullHandling": "NotNull",
@@ -44,7 +44,7 @@
       "allowNullableBodyParameters": true,
       "output": null,
       "outputType": "Swagger2",
-      "assemblyPaths": ["/Users/momo/Dev/SkinshareV2/Skinshare.Web/bin/Debug/netcoreapp3.1/publish/Skinshare.Web.dll"],
+      "assemblyPaths": ["/Users/momo/Dev/SkinshareV2/Skinshare.Web/bin/Debug/netcoreapp3.1/Skinshare.Web.dll"],
       "assemblyConfig": null,
       "referencePaths": [],
       "useNuGetCache": false

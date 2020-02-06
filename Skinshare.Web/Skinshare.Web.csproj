@@ -52,11 +52,20 @@
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     </Target>
 
-    <Target Name="BuildAssetPartials" BeforeTargets="Compile">
+    <Target Name="NSwag" AfterTargets="Build">
+        <Copy SourceFiles="@(Reference)" DestinationFolder="$(OutDir)References" />
+        <Exec Command="$(NSwagExe_Core31) run nswag.json /variables:Configuration=$(Configuration)" />
+        <RemoveDir Directories="$(OutDir)References" />
+    </Target>
+
+    <Target Name="BuildAsset" BeforeTargets="Build" DependsOnTargets="NSwag">
         <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod"/>
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+    </Target>
+
+    <Target Name="CopyPartials" BeforeTargets="Compile">
         <Exec Command="source scripts/generate-clientapp-assets.zsh" />
     </Target>
 
@@ -72,11 +81,5 @@
             </ResolvedFileToPublish>
         </ItemGroup>
     </Target>
-
-<!--    <Target Name="NSwag" AfterTargets="Build">-->
-<!--        <Copy SourceFiles="@(Reference)" DestinationFolder="$(OutDir)References" />-->
-<!--        <Exec Command="$(NSwagExe_Core31) run nswag.json /variables:Configuration=$(Configuration)" />-->
-<!--        <RemoveDir Directories="$(OutDir)References" />-->
-<!--    </Target>-->
 
 </Project>

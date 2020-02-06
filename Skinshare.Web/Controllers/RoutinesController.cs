@@ -23,18 +23,11 @@ namespace Skinshare.Web.Controllers
             _routineService = routineService;
         }
 
-        // GET: api/Routines
-        [HttpGet]
-        public async Task<IEnumerable<Routine>> GetRoutines()
-        {
-            return await _routineService.ListAsync();
-        }
-
         // GET: api/Routines/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Routine>> GetRoutine(int id)
+        [HttpGet("{identifier}")]
+        public async Task<ActionResult<Routine>> GetRoutine(string identifier)
         {
-            var routine = await _routineService.FindAsync(id);
+            var routine = await _routineService.FindAsync(identifier);
 
             if (routine == null)
             {
@@ -42,36 +35,6 @@ namespace Skinshare.Web.Controllers
             }
 
             return routine;
-        }
-
-        // PUT: api/Routines/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoutine(int id, Routine routine)
-        {
-            if (id != routine.Id)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                await _routineService.UpdateAsync(routine);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!await _routineService.Exists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Routines
@@ -83,21 +46,6 @@ namespace Skinshare.Web.Controllers
             await _routineService.AddAsync(routine);
 
             return CreatedAtAction("GetRoutine", new { id = routine.Id }, routine);
-        }
-
-        // DELETE: api/Routines/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Routine>> DeleteRoutine(int id)
-        {
-            var routine = await _routineService.FindAsync(id);
-            if (routine == null)
-            {
-                return NotFound();
-            }
-
-            await _routineService.DeleteAsync(routine);
-
-            return routine;
         }
     }
 }
