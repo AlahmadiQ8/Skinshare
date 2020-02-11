@@ -278,7 +278,9 @@
         <e p="Contracts" t="Include">
           <e p="Requests" t="Include">
             <e p="RoutineRequest.cs" t="Include" />
+            <e p="RoutineRequestValidator.cs" t="Include" />
             <e p="StepRequest.cs" t="Include" />
+            <e p="StepRequestValidator.cs" t="Include" />
           </e>
           <e p="Responses" t="Include">
             <e p="RoutineResponse.cs" t="Include" />
