@@ -93,17 +93,6 @@
           <e p=".gitignore" t="Include" />
           <e p="angular.json" t="Include" />
           <e p="browserslist" t="Include" />
-          <e p="dist" t="Include">
-            <e p="3rdpartylicenses.txt" t="Include" />
-            <e p="index.html" t="Include" />
-            <e p="main-es2015.9b9e252430577c37250a.js" t="Include" />
-            <e p="main-es5.9b9e252430577c37250a.js" t="Include" />
-            <e p="polyfills-es2015.2987770fde9daa1d8a2e.js" t="Include" />
-            <e p="polyfills-es5.df1101cc1e7b588877f8.js" t="Include" />
-            <e p="runtime-es2015.ae75178bf31612cf4d1c.js" t="Include" />
-            <e p="runtime-es5.ae75178bf31612cf4d1c.js" t="Include" />
-            <e p="styles.bc4f0c7db4d7b8beb9cf.css" t="Include" />
-          </e>
           <e p="e2e" t="Include">
             <e p="protractor.conf.js" t="Include" />
             <e p="src" t="Include">
@@ -286,8 +275,21 @@
           <e p="tsconfig.json" t="Include" />
           <e p="tslint.json" t="Include" />
         </e>
+        <e p="Contracts" t="Include">
+          <e p="Requests" t="Include">
+            <e p="RoutineRequest.cs" t="Include" />
+            <e p="StepRequest.cs" t="Include" />
+          </e>
+          <e p="Responses" t="Include">
+            <e p="RoutineResponse.cs" t="Include" />
+            <e p="StepResponse.cs" t="Include" />
+          </e>
+        </e>
         <e p="Controllers" t="Include">
           <e p="RoutinesController.cs" t="Include" />
+        </e>
+        <e p="MappingProfiles" t="Include">
+          <e p="DomainToResponseProfile.cs" t="Include" />
         </e>
         <e p="nswag.json" t="Include" />
         <e p="obj" t="ExcludeRecursive">

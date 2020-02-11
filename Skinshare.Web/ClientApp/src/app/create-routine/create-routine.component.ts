@@ -1,5 +1,5 @@
 import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {IRoutine, Routine, RoutinesClient} from "../app.generated";
+import {RoutinesClient} from "../app.generated";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -8,7 +8,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
   styleUrls: ['./create-routine.component.css']
 })
 export class CreateRoutineComponent implements OnInit, OnDestroy {
-  public routine: Routine;
+  public routine;
   public routineForm = this.fb.group({
     title: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
     description: [''],
@@ -42,7 +42,7 @@ export class CreateRoutineComponent implements OnInit, OnDestroy {
     (this[formName] as FormArray).push(this.fb.control('', Validators.required));
   }
 
-  routineDto(): IRoutine {
+  routineDto() {
     return {
       id: 0,
       title: '',

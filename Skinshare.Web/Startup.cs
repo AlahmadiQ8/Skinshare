@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +34,9 @@ namespace Skinshare.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddControllers().AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
+            services.AddControllers();
+            // .AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
+            services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerDocument();
             services.AddHealthChecks();
             services.AddDbContextPool<RoutineContext>(options => { options.UseNpgsql(Configuration.GetConnectionString("Skinshare")); });

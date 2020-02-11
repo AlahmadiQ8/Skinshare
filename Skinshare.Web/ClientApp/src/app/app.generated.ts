@@ -25,7 +25,7 @@ export class RoutinesClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    getRoutine(identifier: string): Observable<Routine | null> {
+    getRoutine(identifier: string): Observable<RoutineResponse | null> {
         let url_ = this.baseUrl + "/api/Routines/{identifier}";
         if (identifier === undefined || identifier === null)
             throw new Error("The parameter 'identifier' must be defined.");
@@ -47,14 +47,14 @@ export class RoutinesClient {
                 try {
                     return this.processGetRoutine(<any>response_);
                 } catch (e) {
-                    return <Observable<Routine | null>><any>_observableThrow(e);
+                    return <Observable<RoutineResponse | null>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<Routine | null>><any>_observableThrow(response_);
+                return <Observable<RoutineResponse | null>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetRoutine(response: HttpResponseBase): Observable<Routine | null> {
+    protected processGetRoutine(response: HttpResponseBase): Observable<RoutineResponse | null> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -65,7 +65,7 @@ export class RoutinesClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? Routine.fromJS(resultData200) : <any>null;
+            result200 = resultData200 ? RoutineResponse.fromJS(resultData200) : <any>null;
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -73,23 +73,17 @@ export class RoutinesClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<Routine | null>(<any>null);
+        return _observableOf<RoutineResponse | null>(<any>null);
     }
 
-    postRoutine(id: number | undefined, title: string | null, description: string | null | undefined, identifier: string | null | undefined, steps: Step[] | null): Observable<Routine | null> {
+    postRoutine(title: string | null, description: string | null | undefined, steps: StepRequest[] | null): Observable<RoutineResponse | null> {
         let url_ = this.baseUrl + "/api/Routines?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         if (title === undefined)
             throw new Error("The parameter 'title' must be defined.");
         else
             url_ += "title=" + encodeURIComponent("" + title) + "&"; 
         if (description !== undefined)
             url_ += "description=" + encodeURIComponent("" + description) + "&"; 
-        if (identifier !== undefined)
-            url_ += "identifier=" + encodeURIComponent("" + identifier) + "&"; 
         if (steps === undefined)
             throw new Error("The parameter 'steps' must be defined.");
         else
@@ -116,14 +110,14 @@ export class RoutinesClient {
                 try {
                     return this.processPostRoutine(<any>response_);
                 } catch (e) {
-                    return <Observable<Routine | null>><any>_observableThrow(e);
+                    return <Observable<RoutineResponse | null>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<Routine | null>><any>_observableThrow(response_);
+                return <Observable<RoutineResponse | null>><any>_observableThrow(response_);
         }));
     }
 
-    protected processPostRoutine(response: HttpResponseBase): Observable<Routine | null> {
+    protected processPostRoutine(response: HttpResponseBase): Observable<RoutineResponse | null> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -134,7 +128,7 @@ export class RoutinesClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? Routine.fromJS(resultData200) : <any>null;
+            result200 = resultData200 ? RoutineResponse.fromJS(resultData200) : <any>null;
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -142,26 +136,23 @@ export class RoutinesClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<Routine | null>(<any>null);
+        return _observableOf<RoutineResponse | null>(<any>null);
     }
 }
 
-export class Routine implements IRoutine {
+export class RoutineResponse implements IRoutineResponse {
     id!: number;
-    title!: string;
+    title?: string | undefined;
     description?: string | undefined;
     identifier?: string | undefined;
-    steps!: Step[];
+    steps?: StepResponse[] | undefined;
 
-    constructor(data?: IRoutine) {
+    constructor(data?: IRoutineResponse) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
                     (<any>this)[property] = (<any>data)[property];
             }
-        }
-        if (!data) {
-            this.steps = [];
         }
     }
 
@@ -174,14 +165,14 @@ export class Routine implements IRoutine {
             if (Array.isArray(_data["steps"])) {
                 this.steps = [] as any;
                 for (let item of _data["steps"])
-                    this.steps!.push(Step.fromJS(item));
+                    this.steps!.push(StepResponse.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): Routine {
+    static fromJS(data: any): RoutineResponse {
         data = typeof data === 'object' ? data : {};
-        let result = new Routine();
+        let result = new RoutineResponse();
         result.init(data);
         return result;
     }
@@ -201,23 +192,21 @@ export class Routine implements IRoutine {
     }
 }
 
-export interface IRoutine {
+export interface IRoutineResponse {
     id: number;
-    title: string;
+    title?: string | undefined;
     description?: string | undefined;
     identifier?: string | undefined;
-    steps: Step[];
+    steps?: StepResponse[] | undefined;
 }
 
-export class Step implements IStep {
+export class StepResponse implements IStepResponse {
     id!: number;
-    description!: string;
+    description?: string | undefined;
     order!: number;
     partOfDay!: PartOfDay;
-    routineId!: number;
-    routine?: Routine | undefined;
 
-    constructor(data?: IStep) {
+    constructor(data?: IStepResponse) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -232,14 +221,12 @@ export class Step implements IStep {
             this.description = _data["description"];
             this.order = _data["order"];
             this.partOfDay = _data["partOfDay"];
-            this.routineId = _data["routineId"];
-            this.routine = _data["routine"] ? Routine.fromJS(_data["routine"]) : <any>undefined;
         }
     }
 
-    static fromJS(data: any): Step {
+    static fromJS(data: any): StepResponse {
         data = typeof data === 'object' ? data : {};
-        let result = new Step();
+        let result = new StepResponse();
         result.init(data);
         return result;
     }
@@ -250,24 +237,64 @@ export class Step implements IStep {
         data["description"] = this.description;
         data["order"] = this.order;
         data["partOfDay"] = this.partOfDay;
-        data["routineId"] = this.routineId;
-        data["routine"] = this.routine ? this.routine.toJSON() : <any>undefined;
         return data; 
     }
 }
 
-export interface IStep {
+export interface IStepResponse {
     id: number;
-    description: string;
+    description?: string | undefined;
     order: number;
     partOfDay: PartOfDay;
-    routineId: number;
-    routine?: Routine | undefined;
 }
 
 export enum PartOfDay {
     Morning = 10,
     Evening = 20,
+}
+
+export class StepRequest implements IStepRequest {
+    description!: string;
+    order!: number;
+    partOfDay!: PartOfDay;
+
+    constructor(data?: IStepRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.description = _data["description"];
+            this.order = _data["order"];
+            this.partOfDay = _data["partOfDay"];
+        }
+    }
+
+    static fromJS(data: any): StepRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new StepRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["description"] = this.description;
+        data["order"] = this.order;
+        data["partOfDay"] = this.partOfDay;
+        return data; 
+    }
+}
+
+export interface IStepRequest {
+    description: string;
+    order: number;
+    partOfDay: PartOfDay;
 }
 
 export class ApiException extends Error {
