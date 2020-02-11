@@ -1,1 +1,57 @@
-<p>create-routine works!</p>
+<form [formGroup]="routineForm" (ngSubmit)="onSubmit()">
+  <label>
+    Title
+    <input type="text" formControlName="title">
+  </label>
+
+  <div *ngIf="title.invalid && (title.dirty || title.touched)"
+       class="alert alert-danger">
+
+    <div *ngIf="title.errors.required">
+      Title is required.
+    </div>
+    <div *ngIf="title.errors.minlength">
+      title must be at least 5 characters long.
+    </div>
+  </div>
+
+  <label>
+    Description
+    <input type="text" formControlName="description">
+  </label>
+  <div formArrayName="morningSteps">
+    <div>Morning Steps</div>
+    <div *ngFor="let step of morningSteps.controls; let i=index">
+      <!-- The repeated alias template -->
+      <label>
+        <input type="text" [formControlName]="i">
+      </label>
+      <div *ngIf="step.invalid && (step.dirty || step.touched)"
+           class="alert alert-danger">
+
+        <div *ngIf="step.errors.required">
+          Step details is required.
+        </div>
+      </div>
+    </div>
+    <button type="button" (click)="addStep('morningSteps')">Add More Steps</button>
+  </div>
+  <div formArrayName="eveningSteps">
+    <div>Evening Steps</div>
+    <div *ngFor="let step of eveningSteps.controls; let i=index">
+      <!-- The repeated alias template -->
+      <label>
+        <input type="text" [formControlName]="i">
+      </label>
+      <div *ngIf="step.invalid && (step.dirty || step.touched)"
+           class="alert alert-danger">
+
+        <div *ngIf="step.errors.required">
+          Step details is required.
+        </div>
+      </div>
+    </div>
+    <button type="button" (click)="addStep('eveningSteps')">Add More Steps</button>
+  </div>
+  <button type="submit" [disabled]="!routineForm.valid">Submit</button>
+</form>
