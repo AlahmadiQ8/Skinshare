@@ -232,6 +232,7 @@
             <e p="app" t="Include">
               <e p="app.component.html" t="Include" />
               <e p="app.component.ts" t="Include" />
+              <e p="app.generated.ts" t="Include" />
               <e p="app.module.ts" t="Include" />
               <e p="counter" t="Include">
                 <e p="counter.component.html" t="Include" />
@@ -244,6 +245,7 @@
                 <e p="create-routine.component.spec.ts" t="Include" />
                 <e p="create-routine.component.ts" t="Include" />
               </e>
+              <e p="di-tokens.ts" t="Include" />
               <e p="fetch-data" t="Include">
                 <e p="fetch-data.component.html" t="Include" />
                 <e p="fetch-data.component.ts" t="Include" />
