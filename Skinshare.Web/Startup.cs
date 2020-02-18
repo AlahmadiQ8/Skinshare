@@ -36,7 +36,6 @@ namespace Skinshare.Web
         {
             services.AddRazorPages();
             services.AddControllers().AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
-            // .AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerDocument();
             services.AddHealthChecks();

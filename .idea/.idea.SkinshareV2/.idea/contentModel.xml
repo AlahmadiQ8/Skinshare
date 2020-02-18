@@ -232,7 +232,6 @@
             <e p="app" t="Include">
               <e p="app.component.html" t="Include" />
               <e p="app.component.ts" t="Include" />
-              <e p="app.generated.ts" t="Include" />
               <e p="app.module.ts" t="Include" />
               <e p="counter" t="Include">
                 <e p="counter.component.html" t="Include" />

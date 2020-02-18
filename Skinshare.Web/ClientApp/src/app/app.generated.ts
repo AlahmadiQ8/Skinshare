@@ -7,6 +7,7 @@
 //----------------------
 // ReSharper disable InconsistentNaming
 
+import {ClientBase} from './client-base'
 import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
 import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
@@ -14,38 +15,44 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+export interface IRoutinesClient {
+    getRoutine(identifier: string): Observable<RoutineResponse | null>;
+    postRoutine(routine: RoutineRequest | null): Observable<void>;
+}
+
 @Injectable()
-export class RoutinesClient {
+export class RoutinesClient extends ClientBase implements IRoutinesClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        super();
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    getRoutine(identifier: string): Observable<RoutineResponse | null> {
+    getRoutine(identifier: string): Observable<RoutineResponse | any> {
         let url_ = this.baseUrl + "/api/Routines/{identifier}";
         if (identifier === undefined || identifier === null)
             throw new Error("The parameter 'identifier' must be defined.");
-        url_ = url_.replace("{identifier}", encodeURIComponent("" + identifier)); 
+        url_ = url_.replace("{identifier}", encodeURIComponent("" + identifier));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetRoutine(response_);
+            return this.transformResult(url_, response_, (r) => this.processGetRoutine(<any>r));
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetRoutine(<any>response_);
+                    return this.transformResult(url_, response_, (r) => this.processGetRoutine(<any>r));
                 } catch (e) {
                     return <Observable<RoutineResponse | null>><any>_observableThrow(e);
                 }
@@ -56,8 +63,8 @@ export class RoutinesClient {
 
     protected processGetRoutine(response: HttpResponseBase): Observable<RoutineResponse | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -76,67 +83,52 @@ export class RoutinesClient {
         return _observableOf<RoutineResponse | null>(<any>null);
     }
 
-    postRoutine(title: string | null, description: string | null | undefined, steps: StepRequest[] | null): Observable<RoutineResponse | null> {
-        let url_ = this.baseUrl + "/api/Routines?";
-        if (title === undefined)
-            throw new Error("The parameter 'title' must be defined.");
-        else
-            url_ += "title=" + encodeURIComponent("" + title) + "&"; 
-        if (description !== undefined)
-            url_ += "description=" + encodeURIComponent("" + description) + "&"; 
-        if (steps === undefined)
-            throw new Error("The parameter 'steps' must be defined.");
-        else
-            steps && steps.forEach((item, index) => { 
-                for (let attr in item)
-        			if (item.hasOwnProperty(attr)) {
-        				url_ += "steps[" + index + "]." + attr + "=" + encodeURIComponent("" + (<any>item)[attr]) + "&";
-        			}
-            });
+    postRoutine(routine: RoutineRequest | null): Observable<any> {
+        let url_ = this.baseUrl + "/api/Routines";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(routine);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
+                "Content-Type": "application/json",
             })
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostRoutine(response_);
+            return this.transformResult(url_, response_, (r) => this.processPostRoutine(<any>r));
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostRoutine(<any>response_);
+                    return this.transformResult(url_, response_, (r) => this.processPostRoutine(<any>r));
                 } catch (e) {
-                    return <Observable<RoutineResponse | null>><any>_observableThrow(e);
+                    return <Observable<void>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<RoutineResponse | null>><any>_observableThrow(response_);
+                return <Observable<void>><any>_observableThrow(response_);
         }));
     }
 
-    protected processPostRoutine(response: HttpResponseBase): Observable<RoutineResponse | null> {
+    protected processPostRoutine(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
+        if (status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? RoutineResponse.fromJS(resultData200) : <any>null;
-            return _observableOf(result200);
+            return _observableOf<void>(<any>null);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<RoutineResponse | null>(<any>null);
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -188,7 +180,7 @@ export class RoutineResponse implements IRoutineResponse {
             for (let item of this.steps)
                 data["steps"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 }
 
@@ -237,7 +229,7 @@ export class StepResponse implements IStepResponse {
         data["description"] = this.description;
         data["order"] = this.order;
         data["partOfDay"] = this.partOfDay;
-        return data; 
+        return data;
     }
 }
 
@@ -251,6 +243,61 @@ export interface IStepResponse {
 export enum PartOfDay {
     Morning = 10,
     Evening = 20,
+}
+
+export class RoutineRequest implements IRoutineRequest {
+    title!: string;
+    description?: string | undefined;
+    steps!: StepRequest[];
+
+    constructor(data?: IRoutineRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.steps = [];
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.title = _data["title"];
+            this.description = _data["description"];
+            if (Array.isArray(_data["steps"])) {
+                this.steps = [] as any;
+                for (let item of _data["steps"])
+                    this.steps!.push(StepRequest.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): RoutineRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new RoutineRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["description"] = this.description;
+        if (Array.isArray(this.steps)) {
+            data["steps"] = [];
+            for (let item of this.steps)
+                data["steps"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IRoutineRequest {
+    title: string;
+    description?: string | undefined;
+    steps: StepRequest[];
 }
 
 export class StepRequest implements IStepRequest {
@@ -287,7 +334,7 @@ export class StepRequest implements IStepRequest {
         data["description"] = this.description;
         data["order"] = this.order;
         data["partOfDay"] = this.partOfDay;
-        return data; 
+        return data;
     }
 }
 
@@ -299,10 +346,10 @@ export interface IStepRequest {
 
 export class ApiException extends Error {
     message: string;
-    status: number; 
-    response: string; 
+    status: number;
+    response: string;
     headers: { [key: string]: any; };
-    result: any; 
+    result: any;
 
     constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
         super();
@@ -334,12 +381,12 @@ function blobToText(blob: any): Observable<string> {
             observer.next("");
             observer.complete();
         } else {
-            let reader = new FileReader(); 
-            reader.onload = event => { 
+            let reader = new FileReader();
+            reader.onload = event => {
                 observer.next((<any>event.target).result);
                 observer.complete();
             };
-            reader.readAsText(blob); 
+            reader.readAsText(blob);
         }
     });
 }

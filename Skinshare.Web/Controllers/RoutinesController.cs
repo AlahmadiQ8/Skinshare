@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NSwag.Annotations;
 using Skinshare.Core.Entities;
 using Skinshare.Data;
 using Skinshare.Data.Interfaces;
@@ -45,8 +47,10 @@ namespace Skinshare.Web.Controllers
         // POST: api/Routines
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        // TODO: [FromBody] is required so Nswag produce correct httpclient post request 
         [HttpPost]
-        public async Task<ActionResult<RoutineResponse>> PostRoutine(RoutineRequest routine)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult<RoutineResponse>> PostRoutine([FromBody] RoutineRequest routine)
         {
             var res = await _routineService.AddAsync(new Routine
             {
