@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NSwag.Annotations;
 using Skinshare.Core.Entities;
 using Skinshare.Data;
@@ -14,6 +16,8 @@ using Skinshare.Data.Interfaces;
 using Skinshare.Web.Contracts.Requests;
 using Skinshare.Web.Contracts.Responses;
 using Skinshare.Web.Pages;
+using Skinshare.Web.Pages.Generated;
+using ILogger = Microsoft.VisualStudio.Web.CodeGeneration.ILogger;
 
 namespace Skinshare.Web.Controllers
 {
@@ -23,11 +27,15 @@ namespace Skinshare.Web.Controllers
     {
         private readonly IRoutineService _routineService;
         private readonly IMapper _mapper;
+        private readonly LinkGenerator _linkGenerator;
+        private readonly ILogger<RoutinesController> _logger; 
 
-        public RoutinesController(RoutineContext context, IRoutineService routineService, IMapper mapper)
+        public RoutinesController(RoutineContext context, IRoutineService routineService, IMapper mapper, LinkGenerator linkGenerator, ILogger<RoutinesController> logger)
         {
             _routineService = routineService;
             _mapper = mapper;
+            _linkGenerator = linkGenerator;
+            _logger = logger;
         }
 
         // GET: api/Routines/5
@@ -41,7 +49,9 @@ namespace Skinshare.Web.Controllers
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<RoutineResponse>(routine));
+            var res = _mapper.Map<RoutineResponse>(routine);
+            res.Href = _linkGenerator.GetPathByPage("/Routines/Details", null, new {identifier});
+            return Ok(res);
         }
 
         // POST: api/Routines
@@ -49,7 +59,7 @@ namespace Skinshare.Web.Controllers
         // more details see https://aka.ms/RazorPagesCRUD.
         // TODO: [FromBody] is required so Nswag produce correct httpclient post request 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [SwaggerResponse(StatusCodes.Status201Created, typeof(RoutineResponse))]
         public async Task<ActionResult<RoutineResponse>> PostRoutine([FromBody] RoutineRequest routine)
         {
             var res = await _routineService.AddAsync(new Routine
@@ -61,10 +71,13 @@ namespace Skinshare.Web.Controllers
                     Description = s.Description,
                     Order = s.Order,
                     PartOfDay = s.PartOfDay
-                }).ToList()
+                }).ToList(),
             });
+            
+            var response = _mapper.Map<RoutineResponse>(res);
+            response.Href = _linkGenerator.GetPathByPage("/Routines/Details", null, new {res.Identifier});
 
-            return CreatedAtAction("GetRoutine", new { id = res.Id }, _mapper.Map<RoutineResponse>(res));
+            return CreatedAtAction("GetRoutine", new { id = res.Id }, response);
         }
     }
 }

@@ -71,7 +71,7 @@
       "exportTypes": true,
       "wrapDtoExceptions": false,
       "exceptionClass": "ApiException",
-      "clientBaseClass": "ClientBase",
+      "clientBaseClass": null,
       "wrapResponses": false,
       "wrapResponseMethods": [],
       "generateResponseClasses": true,
@@ -79,7 +79,7 @@
       "protectedMethods": [],
       "configurationClass": null,
       "useTransformOptionsMethod": false,
-      "useTransformResultMethod": true,
+      "useTransformResultMethod": false,
       "generateDtoTypes": true,
       "operationGenerationMode": "MultipleClientsFromOperationId",
       "markOptionalProperties": true,
@@ -87,7 +87,7 @@
       "typeStyle": "Class",
       "classTypes": [],
       "extendedClasses": [],
-      "extensionCode": "import {ClientBase} from './client-base'",
+      "extensionCode": null,
       "generateDefaultValues": true,
       "excludedTypeNames": [],
       "excludedParameterNames": [],
@@ -106,7 +106,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "/Users/momo/Dev/SkinshareV2/Skinshare.Web/ClientApp/src/app/app.generated.ts"
+      "output": "./ClientApp/src/app/app.generated.ts"
     }
   }
 }

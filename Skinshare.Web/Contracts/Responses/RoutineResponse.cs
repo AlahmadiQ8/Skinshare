@@ -9,5 +9,6 @@ namespace Skinshare.Web.Contracts.Responses
         public string Description { get; set; }
         public string Identifier { get; set; }
         public IEnumerable<StepResponse> Steps { get; set; }
+        public string Href { get; set; }
     }
 }
