@@ -16,10 +16,7 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface IRoutinesClient {
     getRoutine(identifier: string): Observable<RoutineResponse | null>;
-    /**
-     * @return or
-     */
-    postRoutine(routine: RoutineRequest | null): Observable<any>;
+    postRoutine(routine: RoutineRequest | null): Observable<RoutineResponse>;
 }
 
 @Injectable()
@@ -84,10 +81,7 @@ export class RoutinesClient implements IRoutinesClient {
         return _observableOf<RoutineResponse | null>(<any>null);
     }
 
-    /**
-     * @return or
-     */
-    postRoutine(routine: RoutineRequest | null): Observable<any> {
+    postRoutine(routine: RoutineRequest | null): Observable<RoutineResponse> {
         let url_ = this.baseUrl + "/api/Routines";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -110,14 +104,14 @@ export class RoutinesClient implements IRoutinesClient {
                 try {
                     return this.processPostRoutine(<any>response_);
                 } catch (e) {
-                    return <Observable<any>><any>_observableThrow(e);
+                    return <Observable<RoutineResponse>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<any>><any>_observableThrow(response_);
+                return <Observable<RoutineResponse>><any>_observableThrow(response_);
         }));
     }
 
-    protected processPostRoutine(response: HttpResponseBase): Observable<any> {
+    protected processPostRoutine(response: HttpResponseBase): Observable<RoutineResponse> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -128,7 +122,7 @@ export class RoutinesClient implements IRoutinesClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result201: any = null;
             let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result201 = resultData201 !== undefined ? resultData201 : <any>null;
+            result201 = RoutineResponse.fromJS(resultData201);
             return _observableOf(result201);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -136,7 +130,7 @@ export class RoutinesClient implements IRoutinesClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<any>(<any>null);
+        return _observableOf<RoutineResponse>(<any>null);
     }
 }
 
@@ -255,36 +249,6 @@ export interface IStepResponse {
 export enum PartOfDay {
     Morning = 10,
     Evening = 20,
-}
-
-export class Void implements IVoid {
-
-    constructor(data?: IVoid) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-    }
-
-    static fromJS(data: any): Void {
-        data = typeof data === 'object' ? data : {};
-        let result = new Void();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        return data; 
-    }
-}
-
-export interface IVoid {
 }
 
 export class RoutineRequest implements IRoutineRequest {

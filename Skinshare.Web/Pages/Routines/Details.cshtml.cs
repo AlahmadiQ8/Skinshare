@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGeneration;
 using Skinshare.Core.Entities;
 using Skinshare.Data;
 using Skinshare.Data.Interfaces;
@@ -15,11 +17,13 @@ namespace Skinshare.Web.Pages.Routines
     {
         private readonly IRoutineService _routineService;
         private readonly IStepService _stepService;
+        private readonly ILogger<DetailsModel> _logger;
 
-        public DetailsModel(RoutineContext context, IRoutineService routineService, IStepService stepService)
+        public DetailsModel(RoutineContext context, IRoutineService routineService, IStepService stepService, ILogger<DetailsModel> logger)
         {
             _routineService = routineService;
             _stepService = stepService;
+            _logger = logger;
         }
 
         public Routine Routine { get; set; }
@@ -35,9 +39,8 @@ namespace Skinshare.Web.Pages.Routines
                 return NotFound();
             }
 
-            MorningSteps = _stepService.GetSteps(Routine, PartOfDay.Morning);
-
-            EveningSteps = _stepService.GetSteps(Routine, PartOfDay.Evening);
+            MorningSteps = _stepService.GetSteps(Routine, PartOfDay.Morning).ToList();
+            EveningSteps = _stepService.GetSteps(Routine, PartOfDay.Evening).ToList();
 
             return Page();
         }

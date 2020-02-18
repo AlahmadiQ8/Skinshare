@@ -6,9 +6,12 @@ using System.Net.WebSockets;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,7 +38,9 @@ namespace Skinshare.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddControllers().AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+            services.AddControllers(config => { config.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); })
+                .AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerDocument();
             services.AddHealthChecks();
@@ -46,7 +51,7 @@ namespace Skinshare.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiforgery)
         {
             if (env.IsDevelopment())
             {
@@ -73,6 +78,8 @@ namespace Skinshare.Web
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
+            
+            app.Use(CsrfMiddleware);
 
             app.UseRouting();
 
@@ -95,6 +102,22 @@ namespace Skinshare.Web
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 });
             }
+            
+            async Task CsrfMiddleware(HttpContext context, Func<Task> next)
+            {
+                var path = context.Request.Path.Value;
+                if (string.Equals(path, "/Routines/Create", StringComparison.OrdinalIgnoreCase))
+                {
+                    // The request token can be sent as a JavaScript-readable cookie, 
+                    // and Angular uses it by default.
+                    var tokens = antiforgery.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, 
+                        new CookieOptions() { HttpOnly = false });
+                }
+
+                await next.Invoke();
+            }
         }
+        
     }
 }

@@ -18,11 +18,11 @@ namespace Skinshare.Data.Services
 
         public IEnumerable<Step> GetSteps(Routine routine, PartOfDay partOfDay)
         {
-            return routine.Steps.Where(s => s.PartOfDay == partOfDay).Select(s =>
+            return routine.Steps.Where(s => s.PartOfDay == partOfDay).OrderBy(s => s.Order).Select(s =>
             {
                 s.Order += 1;
                 return s;
-            }).OrderBy(s => s.Order);
+            });
         }
     }
 }
