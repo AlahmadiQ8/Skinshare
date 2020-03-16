@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 pathToIndex="ClientApp/dist/index.html";
-lineToStyleSheets="10";
-lineToScripts="13";
+lineToStyleSheets=$(awk '/stylesheet/{ print NR; exit }' $pathToIndex );  # DANGER Super Brittle
+lineToScripts=$(awk '/script/{ print NR; exit }' $pathToIndex );          # DANGER Super Brittle
 pathToPartials="Pages/Shared"
 
 styleSheets=$(sed "${lineToStyleSheets}q;d" $pathToIndex);
@@ -11,5 +11,5 @@ scripts=$(sed "${lineToScripts}q;d" $pathToIndex);
 scripts=$(echo $scripts | sed 's/<\/body>//g' );
 
 echo $styleSheets > "$pathToPartials/_AppStyleSheetsProd.cshtml";
-echo $scripts  > "$pathToPartials/_AppScriptsProd.cshtml"
+echo $scripts > "$pathToPartials/_AppScriptsProd.cshtml"
 echo "Created prod prartials for _AppStyleSheetsProd.cshtml & _AppScriptsProd.cshtml";

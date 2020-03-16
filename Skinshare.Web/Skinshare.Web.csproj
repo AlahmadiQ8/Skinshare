@@ -68,7 +68,7 @@
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
     </Target>
 
-    <Target Name="CopyPartials" BeforeTargets="Compile">
+    <Target Name="CopyPartials" BeforeTargets="Compile" DependsOnTargets="BuildAsset" Condition=" '$(Configuration)' == 'Release' ">
         <Exec Command="source scripts/generate-clientapp-assets.zsh" />
     </Target>
 
