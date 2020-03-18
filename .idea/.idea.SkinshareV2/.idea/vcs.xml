@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Skinshare.Web/webpack-2020" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Skinshare.Web/webpack-2020/node_modules/gh-pages/.cache/git@github.com!AlahmadiQ8!webpack-2020.git" vcs="Git" />
   </component>
 </project>

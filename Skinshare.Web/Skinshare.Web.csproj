@@ -6,6 +6,7 @@
         <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
         <IsPackable>false</IsPackable>
         <SpaRoot>ClientApp\</SpaRoot>
+        <FrontendRoot>webpack-2020\</FrontendRoot>
         <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
         <!-- Set this to true if you enable server-side prerendering -->
@@ -66,6 +67,8 @@
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+        <Exec WorkingDirectory="$(FrontendRoot)" Command="npm install" />
+        <Exec WorkingDirectory="$(FrontendRoot)" Command="npm run copy-to-wwwroot" />
     </Target>
 
     <Target Name="CopyPartials" BeforeTargets="Compile" DependsOnTargets="BuildAsset" Condition=" '$(Configuration)' == 'Release' ">

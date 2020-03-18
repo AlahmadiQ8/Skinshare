@@ -32,8 +32,10 @@
                 </span></a></section>
             </div>
         </header>
-
-        @RenderBody()
+        
+        <div class="bg-surface mdc-top-app-bar--fixed-adjust">
+            @RenderBody()
+        </div>
     </main>
 
     <footer class="mt-auto py-lg-4 px-lg-5 py-2 px-3">
@@ -48,7 +50,7 @@
                 </a>
             </div>
             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
-                <div>Copyright &copy; 2020. All rights reserved.</div>
+                <div>Copyright &copy; @(DateTime.Today.Year.ToString()). All rights reserved.</div>
                 <div>Site developed <a href="https://alahmadiq8.github.io/" target=”_blank” rel=”noopener
                     noreferrer”>MomoQu8</a></div>
             </div>
