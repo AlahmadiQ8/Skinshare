@@ -53,7 +53,7 @@
       <div class="mdc-card__action-buttons">
         <button type="button" (click)="addStep('morningSteps')" class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button"> <span
             class="mdc-button__ripple"></span>Add Step</button>
-        <button disabled class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button">
+        <button type="button" (click)="removeStep('morningSteps')" [disabled]="morningSteps.controls.length <= 1" class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button">
           <span class="mdc-button__ripple"></span>Remove Step</button>
       </div>
     </div>
@@ -88,7 +88,7 @@
       <div class="mdc-card__action-buttons">
         <button type="button" (click)="addStep('eveningSteps')" class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button"> <span
             class="mdc-button__ripple"></span>Add Step</button>
-        <button disabled class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button">
+        <button type="button" (click)="removeStep('eveningSteps')" [disabled]="eveningSteps.controls.length <= 1" class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button">
           <span class="mdc-button__ripple"></span>Remove Step</button>
       </div>
     </div>

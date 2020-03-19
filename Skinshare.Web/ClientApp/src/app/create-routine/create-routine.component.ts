@@ -73,6 +73,10 @@ export class CreateRoutineComponent implements OnInit, OnDestroy, OnChanges {
   addStep(formName: string) {
     (this[formName] as FormArray).push(this.fb.control('', Validators.required));
   }
+  
+  removeStep(formName: string) {
+    (this[formName] as FormArray).removeAt(-1);
+  }
 
   private routineDto(form: RoutineFormResult): RoutineRequest {
     return RoutineRequest.fromJS({
