@@ -11,6 +11,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { RoutinesClient } from "./app.generated";
 import { CreateRoutineComponent } from './create-routine/create-routine.component';
 import { WINDOW_TOKEN } from './di-tokens';
+import { SpyDirective } from './directives/spy.directive';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { WINDOW_TOKEN } from './di-tokens';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    CreateRoutineComponent
+    CreateRoutineComponent,
+    SpyDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

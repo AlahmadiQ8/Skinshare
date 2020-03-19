@@ -13,7 +13,7 @@
     <link rel="stylesheet" asp-href-include="~/bundle.*.css" />
     @RenderSection("StyleSheets", required: false)
 </head>
-<body class="mdc-typography d-flex flex-column h-100">
+<body class="mdc-typography d-flex flex-column h-100 bg-surface">
 
     <main class="flex-shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -58,7 +58,7 @@
         </div>
     </footer>
 
-    <script asp-src-include="~/app.*.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <script asp-src-include="~/app*.js" asp-append-version="true"></script>
 </body>
 </html>

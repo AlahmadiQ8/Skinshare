@@ -1,57 +1,103 @@
-<form [formGroup]="routineForm" (ngSubmit)="onSubmit()">
-  <label>
-    Title
-    <input type="text" formControlName="title">
+<form form [formGroup]="routineForm" (ngSubmit)="onSubmit()" class="create-form routine flex-grow-1 bg-white">
+  <label class="title-text-field mdc-text-field mdc-text-field--fullwidth mdc-text-field--no-label">
+    <input class="mdc-text-field__input" required minlength="5" id="text-field-title" placeholder="Title..."
+      aria-label="Routine Title" aria-controls="title-helper-text" aria-describedby="title-helper-text"
+      formControlName="title">
+    <div class="mdc-line-ripple"></div>
   </label>
-
-  <div *ngIf="title.invalid && (title.dirty || title.touched)"
-       class="alert alert-danger">
-
-    <div *ngIf="title.errors.required">
-      Title is required.
-    </div>
-    <div *ngIf="title.errors.minlength">
-      title must be at least 5 characters long.
+  <div class="mdc-text-field-helper-line">
+    <div id="title-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg"
+      aria-hidden="true">
+      <span *ngIf="title.invalid && (title.dirty || title.touched) && title.errors.required">Title Cannot be empty</span>
+      <span *ngIf="title.invalid && (title.dirty || title.touched) && title.errors.minlength">Title too short</span>
     </div>
   </div>
 
-  <label>
-    Description
-    <input type="text" formControlName="description">
+  <label
+    class="description-textarea mdc-text-field mdc-text-field--textarea mdc-text-field--fullwidth mdc-text-field--no-label my-4">
+    <textarea class="mdc-text-field__input" rows="2" cols="40" placeholder="Description..." formControlName="description"></textarea>
+    <div class="mdc-notched-outline">
+      <div class="mdc-notched-outline__leading"></div>
+      <div class="mdc-notched-outline__trailing"></div>
+    </div>
   </label>
-  <div formArrayName="morningSteps">
-    <div>Morning Steps</div>
-    <div *ngFor="let step of morningSteps.controls; let i=index">
-      <!-- The repeated alias template -->
-      <label>
-        <input type="text" [formControlName]="i">
-      </label>
-      <div *ngIf="step.invalid && (step.dirty || step.touched)"
-           class="alert alert-danger">
 
-        <div *ngIf="step.errors.required">
-          Step details is required.
+  <div class="steps">
+    <div class="steps__timeOfDay mdc-list mdc-list--non-interactive">
+      <li class="mdc-list-item mdc-ripple-upgraded morning">
+        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">wb_sunny</span>
+        <span class="mdc-list-item__text">Morning</span>
+      </li>
+    </div>
+
+    <!-- step form -->
+    <div formArrayName="morningSteps">
+      <div *ngFor="let step of morningSteps.controls; let i=index" [appSpy]="initiMaterial">
+        <label class="mdc-text-field step-text-field mt-2 w-100">
+          <!-- <div class="mdc-text-field__ripple"></div> -->
+          <input class="mdc-text-field__input" type="text" [formControlName]="i" aria-labelledby="step-1-form" required
+            aria-controls="step-1-helper-text" aria-describedby="step-1-helper-text">
+          <span class="mdc-floating-label" id="step-{{i}}-form">Step {{i + 1}}</span>
+          <div class="mdc-line-ripple"></div>
+        </label>
+        <div class="mdc-text-field-helper-line">
+          <div id="step-{{i}}-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg"
+            aria-hidden="true">
+            A step cannot be empty
+          </div>
         </div>
       </div>
     </div>
-    <button type="button" (click)="addStep('morningSteps')">Add More Steps</button>
-  </div>
-  <div formArrayName="eveningSteps">
-    <div>Evening Steps</div>
-    <div *ngFor="let step of eveningSteps.controls; let i=index">
-      <!-- The repeated alias template -->
-      <label>
-        <input type="text" [formControlName]="i">
-      </label>
-      <div *ngIf="step.invalid && (step.dirty || step.touched)"
-           class="alert alert-danger">
 
-        <div *ngIf="step.errors.required">
-          Step details is required.
+    <div class="mdc-card__actions justify-content-start my-4">
+      <div class="mdc-card__action-buttons">
+        <button type="button" (click)="addStep('morningSteps')" class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button"> <span
+            class="mdc-button__ripple"></span>Add Step</button>
+        <button disabled class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button">
+          <span class="mdc-button__ripple"></span>Remove Step</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="steps">
+    <div class="steps__timeOfDay mdc-list mdc-list--non-interactive">
+      <li class="mdc-list-item mdc-ripple-upgraded evening">
+        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">nights_stay</span>
+        <span class="mdc-list-item__text">Evening</span></li>
+    </div>
+
+    <div formArrayName="eveningSteps">
+      <div *ngFor="let step of eveningSteps.controls; let i=index" [appSpy]="initiMaterial">
+        <label class="mdc-text-field step-text-field mt-2 w-100">
+          <!-- <div class="mdc-text-field__ripple"></div> -->
+          <input class="mdc-text-field__input" type="text" [formControlName]="i" aria-labelledby="step-1-form" required
+            aria-controls="step-1-helper-text" aria-describedby="step-1-helper-text">
+          <span class="mdc-floating-label" id="step-{{i}}-form">Step {{i + 1}}</span>
+          <div class="mdc-line-ripple"></div>
+        </label>
+        <div class="mdc-text-field-helper-line">
+          <div id="step-{{i}}-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg"
+            aria-hidden="true">
+            A step cannot be empty
+          </div>
         </div>
       </div>
     </div>
-    <button type="button" (click)="addStep('eveningSteps')">Add More Steps</button>
+
+    <div class="mdc-card__actions justify-content-start my-4">
+      <div class="mdc-card__action-buttons">
+        <button type="button" (click)="addStep('eveningSteps')" class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button"> <span
+            class="mdc-button__ripple"></span>Add Step</button>
+        <button disabled class="add-step mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button">
+          <span class="mdc-button__ripple"></span>Remove Step</button>
+      </div>
+    </div>
+
   </div>
-  <button type="submit" [disabled]="!routineForm.valid">Submit</button>
+  <div class="mdc-card__actions justify-content-end">
+    <div class="mdc-card__action-buttons">
+      <button [disabled]="!routineForm.valid" class="generate-routine mdc-button mdc-button--raised mdc-card__action mdc-card__action--button"> <span
+          class="mdc-button__ripple"></span>Create Routine</button>
+    </div>
+  </div>
 </form>

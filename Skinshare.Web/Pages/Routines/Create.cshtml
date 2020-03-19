@@ -2,38 +2,29 @@
 @model Skinshare.Web.Pages.Routines.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Routine";
 }
 
-<h1>Create</h1>
-
-<h4>Routine</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <app-root></app-root>
+<div class="mdc-layout-grid py-4 py-lg-5" style="max-width: 1200px;">
+    <div class="mdc-layout-grid__inner">
+        <div
+            class="create-wrapper mdc-layout-grid__cell mdc-layout-grid__cell--align-center mdc-layout-grid__cell--span-8-desktop mdc-layout-grid__cell--span-12-tablet mb-3">
+            <app-root></app-root>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
 @section StyleSheets {
-    <environment include="Development">
-        @{await Html.RenderPartialAsync("_AppStyleSheets");}
-    </environment>
     <environment exclude="Development">
-        @{await Html.RenderPartialAsync("_AppStyleSheetsProd");}
+        @{ await Html.RenderPartialAsync("_AppStyleSheetsProd"); }
     </environment>
 }
 
 @section Scripts {
     <environment include="Development">
-        @{await Html.RenderPartialAsync("_AppScripts");}
+        @{ await Html.RenderPartialAsync("_AppScripts"); }
     </environment>
     <environment exclude="Development">
-        @{await Html.RenderPartialAsync("_AppScriptsProd");}
+        @{ await Html.RenderPartialAsync("_AppScriptsProd"); }
     </environment>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
