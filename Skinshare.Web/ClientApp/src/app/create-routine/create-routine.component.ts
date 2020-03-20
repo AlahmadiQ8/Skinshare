@@ -16,7 +16,7 @@ export class CreateRoutineComponent implements OnInit, OnDestroy, OnChanges {
   public routine;
   public routineForm = this.fb.group({
     title: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-    description: [''],
+    description: ['', Validators.maxLength(280)],
     morningSteps: this.fb.array([
       ['', Validators.required]
     ]),

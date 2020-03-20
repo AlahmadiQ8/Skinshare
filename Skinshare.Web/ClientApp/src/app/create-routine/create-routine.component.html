@@ -1,6 +1,6 @@
 <form form [formGroup]="routineForm" (ngSubmit)="onSubmit()" class="create-form routine flex-grow-1 bg-white">
   <label class="title-text-field mdc-text-field mdc-text-field--fullwidth mdc-text-field--no-label">
-    <input class="mdc-text-field__input" required minlength="5" id="text-field-title" placeholder="Title..."
+    <input class="mdc-text-field__input" required minlength="5" id="title-input" placeholder="Title..."
       aria-label="Routine Title" aria-controls="title-helper-text" aria-describedby="title-helper-text"
       formControlName="title">
     <div class="mdc-line-ripple"></div>
@@ -13,16 +13,16 @@
     </div>
   </div>
 
-  <label
-    class="description-textarea mdc-text-field mdc-text-field--textarea mdc-text-field--fullwidth mdc-text-field--no-label my-4">
-    <textarea class="mdc-text-field__input" rows="2" cols="40" placeholder="Description..." formControlName="description"></textarea>
+  <label class="description-textarea mdc-text-field mdc-text-field--textarea mdc-text-field--fullwidth mdc-text-field--no-label mt-2">
+    <textarea maxlength="280" class="mdc-text-field__input" rows="2" placeholder="Description..." formControlName="description"
+    aria-controls="my-description-textarea" aria-describedby="my-description-textarea"></textarea>
     <div class="mdc-notched-outline">
       <div class="mdc-notched-outline__leading"></div>
       <div class="mdc-notched-outline__trailing"></div>
     </div>
   </label>
 
-  <div class="steps">
+  <div class="steps mt-2">
     <div class="steps__timeOfDay mdc-list mdc-list--non-interactive">
       <li class="mdc-list-item mdc-ripple-upgraded morning">
         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">wb_sunny</span>
@@ -33,7 +33,7 @@
     <!-- step form -->
     <div formArrayName="morningSteps">
       <div *ngFor="let step of morningSteps.controls; let i=index" [appSpy]="initiMaterial">
-        <label class="mdc-text-field step-text-field mt-2 w-100">
+        <label class="mdc-text-field step-text-field w-100" [ngClass]="i == 0 ? 'mt-2' : 'mt-1'">
           <!-- <div class="mdc-text-field__ripple"></div> -->
           <input class="mdc-text-field__input" type="text" [formControlName]="i" aria-labelledby="step-1-form" required
             aria-controls="step-1-helper-text" aria-describedby="step-1-helper-text">
@@ -68,7 +68,7 @@
 
     <div formArrayName="eveningSteps">
       <div *ngFor="let step of eveningSteps.controls; let i=index" [appSpy]="initiMaterial">
-        <label class="mdc-text-field step-text-field mt-2 w-100">
+        <label class="mdc-text-field step-text-field w-100" [ngClass]="i == 0 ? 'mt-2' : 'mt-1'">
           <!-- <div class="mdc-text-field__ripple"></div> -->
           <input class="mdc-text-field__input" type="text" [formControlName]="i" aria-labelledby="step-1-form" required
             aria-controls="step-1-helper-text" aria-describedby="step-1-helper-text">
