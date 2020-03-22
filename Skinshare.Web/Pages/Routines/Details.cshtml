@@ -14,8 +14,8 @@
                 <h2 class="routine__title px-2 px-lg-0">@Html.DisplayFor(model => model.Routine.Title)</h2>
 
                 @if (!string.IsNullOrEmpty(Model.Routine.Description))
-                {
-                    <p class="routine__description px-2 px-lg-0">
+                 {
+                    <p class="routine__description px-2 px-lg-0 mb-4">
                         @Html.DisplayFor(model => model.Routine.Description)
                     </p>
                 }
@@ -63,16 +63,16 @@
 
                 <div class="mdc-card__actions justify-content-end">
                     <div class="mdc-card__action-buttons">
-                        <button class="mdc-button mdc-card__action mdc-card__action--button">
-                            <span
-                                class="mdc-button__ripple">
-                            </span>Download PNG
-                        </button>
-                        <button class="mdc-button mdc-card__action mdc-card__action--button">
-                            <span
-                                class="mdc-button__ripple">
-                            </span>Print
-                        </button>
+                        @* <button class="mdc-button mdc-card__action mdc-card__action--button"> *@
+                        @*     <span *@
+                        @*         class="mdc-button__ripple"> *@
+                        @*     </span>Download PNG *@
+                        @* </button> *@
+                        @* <button class="mdc-button mdc-card__action mdc-card__action--button"> *@
+                        @*     <span *@
+                        @*         class="mdc-button__ripple"> *@
+                        @*     </span>Print *@
+                        @* </button> *@
                         <button id="CopyPermalink" class="mdc-button mdc-card__action mdc-card__action--button">
                             <span
                                 class="mdc-button__ripple">

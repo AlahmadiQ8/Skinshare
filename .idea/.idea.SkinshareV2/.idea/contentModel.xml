@@ -89,6 +89,7 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="ClientApp" t="Include">
+          <e p=".dockerignore" t="Include" />
           <e p=".editorconfig" t="Include" />
           <e p=".gitignore" t="Include" />
           <e p="angular.json" t="Include" />
@@ -96,13 +97,12 @@
           <e p="dist" t="Include">
             <e p="3rdpartylicenses.txt" t="Include" />
             <e p="index.html" t="Include" />
-            <e p="main-es2015.a8896d5138454362e5df.js" t="Include" />
-            <e p="main-es5.a8896d5138454362e5df.js" t="Include" />
-            <e p="polyfills-es2015.2987770fde9daa1d8a2e.js" t="Include" />
-            <e p="polyfills-es5.fefa72e12b2a2d6ef7f2.js" t="Include" />
-            <e p="runtime-es2015.ae75178bf31612cf4d1c.js" t="Include" />
-            <e p="runtime-es5.ae75178bf31612cf4d1c.js" t="Include" />
-            <e p="styles.bc4f0c7db4d7b8beb9cf.css" t="Include" />
+            <e p="main-es2015.e63fbba6cf29bbd7e3dd.js" t="Include" />
+            <e p="main-es5.e63fbba6cf29bbd7e3dd.js" t="Include" />
+            <e p="polyfills-es2015.5b10b8fd823b6392f1fd.js" t="Include" />
+            <e p="polyfills-es5.d5e41319ac4c4f307356.js" t="Include" />
+            <e p="runtime-es2015.2afd7f036f812fdfb1a8.js" t="Include" />
+            <e p="runtime-es5.2afd7f036f812fdfb1a8.js" t="Include" />
           </e>
           <e p="e2e" t="Include">
             <e p="protractor.conf.js" t="Include" />
@@ -391,11 +391,17 @@
               <e p="3rdpartylicenses.txt" t="Include" />
               <e p="index.html" t="Include" />
               <e p="main-es2015.a8896d5138454362e5df.js" t="Include" />
+              <e p="main-es2015.e63fbba6cf29bbd7e3dd.js" t="Include" />
               <e p="main-es5.a8896d5138454362e5df.js" t="Include" />
+              <e p="main-es5.e63fbba6cf29bbd7e3dd.js" t="Include" />
               <e p="polyfills-es2015.2987770fde9daa1d8a2e.js" t="Include" />
+              <e p="polyfills-es2015.5b10b8fd823b6392f1fd.js" t="Include" />
+              <e p="polyfills-es5.d5e41319ac4c4f307356.js" t="Include" />
               <e p="polyfills-es5.df1101cc1e7b588877f8.js" t="Include" />
               <e p="polyfills-es5.fefa72e12b2a2d6ef7f2.js" t="Include" />
+              <e p="runtime-es2015.2afd7f036f812fdfb1a8.js" t="Include" />
               <e p="runtime-es2015.ae75178bf31612cf4d1c.js" t="Include" />
+              <e p="runtime-es5.2afd7f036f812fdfb1a8.js" t="Include" />
               <e p="runtime-es5.ae75178bf31612cf4d1c.js" t="Include" />
               <e p="styles.bc4f0c7db4d7b8beb9cf.css" t="Include" />
             </e>
@@ -515,13 +521,49 @@
               <e p="appsettings.Development.json" t="Include" />
               <e p="appsettings.json" t="Include" />
               <e p="nswag.json" t="Include" />
+              <e p="publish" t="Include">
+                <e p="appsettings.Development.json" t="Include" />
+                <e p="appsettings.json" t="Include" />
+                <e p="nswag.json" t="Include" />
+                <e p="publish" t="Include">
+                  <e p="appsettings.Development.json" t="Include" />
+                  <e p="appsettings.json" t="Include" />
+                  <e p="nswag.json" t="Include" />
+                  <e p="publish" t="Include">
+                    <e p="appsettings.Development.json" t="Include" />
+                    <e p="appsettings.json" t="Include" />
+                    <e p="nswag.json" t="Include" />
+                    <e p="Skinshare.Web.deps.json" t="Include" />
+                    <e p="Skinshare.Web.runtimeconfig.json" t="Include" />
+                    <e p="web.config" t="Include" />
+                  </e>
+                  <e p="Skinshare.Web.deps.json" t="Include" />
+                  <e p="Skinshare.Web.runtimeconfig.json" t="Include" />
+                  <e p="web.config" t="Include" />
+                </e>
+                <e p="Skinshare.Web.deps.json" t="Include" />
+                <e p="Skinshare.Web.runtimeconfig.json" t="Include" />
+                <e p="web.config" t="Include" />
+                <e p="webpack-2020" t="Include">
+                  <e p="package-lock.json" t="Include" />
+                  <e p="package.json" t="Include" />
+                </e>
+              </e>
               <e p="Skinshare.Web.deps.json" t="Include" />
               <e p="Skinshare.Web.runtimeconfig.json" t="Include" />
               <e p="web.config" t="Include" />
+              <e p="webpack-2020" t="Include">
+                <e p="package-lock.json" t="Include" />
+                <e p="package.json" t="Include" />
+              </e>
             </e>
             <e p="Skinshare.Web.deps.json" t="Include" />
             <e p="Skinshare.Web.runtimeconfig.json" t="Include" />
             <e p="web.config" t="Include" />
+            <e p="webpack-2020" t="Include">
+              <e p="package-lock.json" t="Include" />
+              <e p="package.json" t="Include" />
+            </e>
           </e>
           <e p="ru" t="Include">
             <e p="Microsoft.CodeAnalysis.CSharp.resources.dll" t="Include" />
@@ -602,8 +644,12 @@
           <e p="wwwroot" t="Include">
             <e p="app.a160cc22.js" t="Include" />
             <e p="app.a160cc22.js.map" t="Include" />
+            <e p="app.ef901e18.js" t="Include" />
+            <e p="app.ef901e18.js.map" t="Include" />
             <e p="bundle.a160cc22.css" t="Include" />
             <e p="bundle.a160cc22.css.map" t="Include" />
+            <e p="bundle.ef901e18.css" t="Include" />
+            <e p="bundle.ef901e18.css.map" t="Include" />
             <e p="css" t="Include">
               <e p="site.css" t="Include" />
             </e>
@@ -704,100 +750,78 @@
             </e>
             <e p="view.html" t="Include" />
           </e>
-          <e p="node_modules" t="Include">
-            <e p=".cache" t="Include">
-              <e p="terser-webpack-plugin" t="Include">
-                <e p="content-v2" t="Include">
-                  <e p="sha512" t="Include">
-                    <e p="20" t="Include">
-                      <e p="16" t="Include">
-                        <e p="1f97764609b30d7a1da710e9386650914fd21cfc57042db798edc6b1a25a9822b9cc2ecfe5f4628a14464fd144553a284ad58f35e30f8a3fe7cadf223c1e" t="Include" />
-                      </e>
-                    </e>
-                  </e>
-                </e>
-                <e p="index-v5" t="Include">
-                  <e p="ce" t="Include">
-                    <e p="24" t="Include">
-                      <e p="f9454ac598a3ae40c8bac0ce9d404f7f0e767e5f243b7bde80fdd70ee05a" t="Include" />
-                    </e>
-                  </e>
-                </e>
-              </e>
-            </e>
-            <e p="@babel/core" t="IncludeRecursive" />
-            <e p="@babel/plugin-proposal-class-properties" t="IncludeRecursive" />
-            <e p="@babel/plugin-syntax-dynamic-import" t="IncludeRecursive" />
-            <e p="@babel/polyfill" t="IncludeRecursive" />
-            <e p="@babel/preset-env" t="IncludeRecursive" />
-            <e p="@material/animation" t="IncludeRecursive" />
-            <e p="@material/auto-init" t="IncludeRecursive" />
-            <e p="@material/base" t="IncludeRecursive" />
-            <e p="@material/checkbox" t="IncludeRecursive" />
-            <e p="@material/chips" t="IncludeRecursive" />
-            <e p="@material/data-table" t="IncludeRecursive" />
-            <e p="@material/dialog" t="IncludeRecursive" />
-            <e p="@material/dom" t="IncludeRecursive" />
-            <e p="@material/drawer" t="IncludeRecursive" />
-            <e p="@material/floating-label" t="IncludeRecursive" />
-            <e p="@material/form-field" t="IncludeRecursive" />
-            <e p="@material/icon-button" t="IncludeRecursive" />
-            <e p="@material/line-ripple" t="IncludeRecursive" />
-            <e p="@material/linear-progress" t="IncludeRecursive" />
-            <e p="@material/list" t="IncludeRecursive" />
-            <e p="@material/menu" t="IncludeRecursive" />
-            <e p="@material/menu-surface" t="IncludeRecursive" />
-            <e p="@material/notched-outline" t="IncludeRecursive" />
-            <e p="@material/radio" t="IncludeRecursive" />
-            <e p="@material/ripple" t="IncludeRecursive" />
-            <e p="@material/select" t="IncludeRecursive" />
-            <e p="@material/slider" t="IncludeRecursive" />
-            <e p="@material/snackbar" t="IncludeRecursive" />
-            <e p="@material/switch" t="IncludeRecursive" />
-            <e p="@material/tab" t="IncludeRecursive" />
-            <e p="@material/tab-bar" t="IncludeRecursive" />
-            <e p="@material/tab-indicator" t="IncludeRecursive" />
-            <e p="@material/tab-scroller" t="IncludeRecursive" />
-            <e p="@material/textfield" t="IncludeRecursive" />
-            <e p="@material/top-app-bar" t="IncludeRecursive" />
-            <e p="@types" t="IncludeRecursive">
-              <e p="anymatch" t="IncludeRecursive" />
-              <e p="events" t="IncludeRecursive" />
-              <e p="minimatch" t="IncludeRecursive" />
-              <e p="node" t="IncludeRecursive" />
-              <e p="source-list-map" t="IncludeRecursive" />
-              <e p="tapable" t="IncludeRecursive" />
-              <e p="uglify-js" t="IncludeRecursive" />
-              <e p="webpack-sources" t="IncludeRecursive" />
-            </e>
-            <e p="autoprefixer" t="IncludeRecursive" />
-            <e p="babel-loader" t="IncludeRecursive" />
-            <e p="clean-webpack-plugin" t="IncludeRecursive" />
-            <e p="copy-webpack-plugin" t="IncludeRecursive" />
-            <e p="core-js" t="IncludeRecursive" />
-            <e p="cross-env" t="IncludeRecursive" />
-            <e p="css-loader" t="IncludeRecursive" />
-            <e p="eslint" t="IncludeRecursive" />
-            <e p="eslint-loader" t="IncludeRecursive" />
-            <e p="file-loader" t="IncludeRecursive" />
-            <e p="gh-pages" t="IncludeRecursive" />
-            <e p="html-webpack-plugin" t="IncludeRecursive" />
-            <e p="material-components-web" t="IncludeRecursive" />
-            <e p="mini-css-extract-plugin" t="IncludeRecursive" />
-            <e p="node-sass" t="IncludeRecursive" />
-            <e p="normalize.css" t="IncludeRecursive" />
-            <e p="postcss-loader" t="IncludeRecursive" />
-            <e p="pretty-error" t="IncludeRecursive" />
-            <e p="sass" t="IncludeRecursive" />
-            <e p="sass-loader" t="IncludeRecursive" />
-            <e p="source-map" t="IncludeRecursive" />
-            <e p="style-loader" t="IncludeRecursive" />
-            <e p="tslib" t="IncludeRecursive" />
-            <e p="webpack" t="IncludeRecursive" />
-            <e p="webpack-cli" t="IncludeRecursive" />
-            <e p="webpack-dev-server" t="IncludeRecursive" />
-            <e p="webpack-merge" t="IncludeRecursive" />
+          <e p="node_modules/@babel/core" t="IncludeRecursive" />
+          <e p="node_modules/@babel/plugin-proposal-class-properties" t="IncludeRecursive" />
+          <e p="node_modules/@babel/plugin-syntax-dynamic-import" t="IncludeRecursive" />
+          <e p="node_modules/@babel/polyfill" t="IncludeRecursive" />
+          <e p="node_modules/@babel/preset-env" t="IncludeRecursive" />
+          <e p="node_modules/@material/animation" t="IncludeRecursive" />
+          <e p="node_modules/@material/auto-init" t="IncludeRecursive" />
+          <e p="node_modules/@material/base" t="IncludeRecursive" />
+          <e p="node_modules/@material/checkbox" t="IncludeRecursive" />
+          <e p="node_modules/@material/chips" t="IncludeRecursive" />
+          <e p="node_modules/@material/data-table" t="IncludeRecursive" />
+          <e p="node_modules/@material/dialog" t="IncludeRecursive" />
+          <e p="node_modules/@material/dom" t="IncludeRecursive" />
+          <e p="node_modules/@material/drawer" t="IncludeRecursive" />
+          <e p="node_modules/@material/floating-label" t="IncludeRecursive" />
+          <e p="node_modules/@material/form-field" t="IncludeRecursive" />
+          <e p="node_modules/@material/icon-button" t="IncludeRecursive" />
+          <e p="node_modules/@material/line-ripple" t="IncludeRecursive" />
+          <e p="node_modules/@material/linear-progress" t="IncludeRecursive" />
+          <e p="node_modules/@material/list" t="IncludeRecursive" />
+          <e p="node_modules/@material/menu" t="IncludeRecursive" />
+          <e p="node_modules/@material/menu-surface" t="IncludeRecursive" />
+          <e p="node_modules/@material/notched-outline" t="IncludeRecursive" />
+          <e p="node_modules/@material/radio" t="IncludeRecursive" />
+          <e p="node_modules/@material/ripple" t="IncludeRecursive" />
+          <e p="node_modules/@material/select" t="IncludeRecursive" />
+          <e p="node_modules/@material/slider" t="IncludeRecursive" />
+          <e p="node_modules/@material/snackbar" t="IncludeRecursive" />
+          <e p="node_modules/@material/switch" t="IncludeRecursive" />
+          <e p="node_modules/@material/tab" t="IncludeRecursive" />
+          <e p="node_modules/@material/tab-bar" t="IncludeRecursive" />
+          <e p="node_modules/@material/tab-indicator" t="IncludeRecursive" />
+          <e p="node_modules/@material/tab-scroller" t="IncludeRecursive" />
+          <e p="node_modules/@material/textfield" t="IncludeRecursive" />
+          <e p="node_modules/@material/top-app-bar" t="IncludeRecursive" />
+          <e p="node_modules/@types" t="IncludeRecursive">
+            <e p="anymatch" t="IncludeRecursive" />
+            <e p="events" t="IncludeRecursive" />
+            <e p="minimatch" t="IncludeRecursive" />
+            <e p="node" t="IncludeRecursive" />
+            <e p="source-list-map" t="IncludeRecursive" />
+            <e p="tapable" t="IncludeRecursive" />
+            <e p="uglify-js" t="IncludeRecursive" />
+            <e p="webpack-sources" t="IncludeRecursive" />
           </e>
+          <e p="node_modules/autoprefixer" t="IncludeRecursive" />
+          <e p="node_modules/babel-loader" t="IncludeRecursive" />
+          <e p="node_modules/clean-webpack-plugin" t="IncludeRecursive" />
+          <e p="node_modules/copy-webpack-plugin" t="IncludeRecursive" />
+          <e p="node_modules/core-js" t="IncludeRecursive" />
+          <e p="node_modules/cross-env" t="IncludeRecursive" />
+          <e p="node_modules/css-loader" t="IncludeRecursive" />
+          <e p="node_modules/eslint" t="IncludeRecursive" />
+          <e p="node_modules/eslint-loader" t="IncludeRecursive" />
+          <e p="node_modules/file-loader" t="IncludeRecursive" />
+          <e p="node_modules/gh-pages" t="IncludeRecursive" />
+          <e p="node_modules/html-webpack-plugin" t="IncludeRecursive" />
+          <e p="node_modules/material-components-web" t="IncludeRecursive" />
+          <e p="node_modules/mini-css-extract-plugin" t="IncludeRecursive" />
+          <e p="node_modules/node-sass" t="IncludeRecursive" />
+          <e p="node_modules/normalize.css" t="IncludeRecursive" />
+          <e p="node_modules/postcss-loader" t="IncludeRecursive" />
+          <e p="node_modules/pretty-error" t="IncludeRecursive" />
+          <e p="node_modules/sass" t="IncludeRecursive" />
+          <e p="node_modules/sass-loader" t="IncludeRecursive" />
+          <e p="node_modules/source-map" t="IncludeRecursive" />
+          <e p="node_modules/style-loader" t="IncludeRecursive" />
+          <e p="node_modules/tslib" t="IncludeRecursive" />
+          <e p="node_modules/webpack" t="IncludeRecursive" />
+          <e p="node_modules/webpack-cli" t="IncludeRecursive" />
+          <e p="node_modules/webpack-dev-server" t="IncludeRecursive" />
+          <e p="node_modules/webpack-merge" t="IncludeRecursive" />
           <e p="package-lock.json" t="Include" />
           <e p="package.json" t="Include" />
           <e p="public" t="Include">
