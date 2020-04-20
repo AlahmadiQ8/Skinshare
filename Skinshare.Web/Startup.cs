@@ -1,24 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.WebSockets;
 using System.Threading.Tasks;
+using Amazon.AspNetCore.DataProtection.SSM;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using Skinshare.Data;
 using Skinshare.Data.Interfaces;
 using Skinshare.Data.Services;
@@ -48,6 +43,11 @@ namespace Skinshare.Web
             services.AddScoped(typeof(IAsyncRepository<>), typeof(SqlRepository<>));
             services.AddScoped<IRoutineService, RoutineService>();
             services.AddScoped<IStepService, StepService>();
+            services.AddDataProtection()
+                .PersistKeysToAWSSystemsManager("/Skinshare/DataProtection", options =>
+                {
+                    options.TierStorageMode = TierStorageMode.StandardOnly;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

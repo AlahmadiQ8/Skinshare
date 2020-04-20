@@ -16,7 +16,6 @@ using Skinshare.Data.Interfaces;
 using Skinshare.Web.Contracts.Requests;
 using Skinshare.Web.Contracts.Responses;
 using Skinshare.Web.Pages;
-using Skinshare.Web.Pages.Generated;
 using ILogger = Microsoft.VisualStudio.Web.CodeGeneration.ILogger;
 
 namespace Skinshare.Web.Controllers
