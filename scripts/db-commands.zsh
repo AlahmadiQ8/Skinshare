@@ -18,4 +18,4 @@ dotnet aspnet-codegenerator controller -name RoutinesController -async -api -m S
 cd Skinshare.Web && dotnet publish -c Release -o publish && cd ..
 
 # Execute Docker
-docker build --rm -f "Skinshare.Web/Dockerfile" -t skinshareapp:latest "Skinshare.Web"
+docker build --rm -f "Skinshare.Web/Dockerfile" -t skinshare "Skinshare.Web"

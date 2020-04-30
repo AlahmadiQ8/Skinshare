@@ -10,6 +10,8 @@ styleSheets=$(echo $styleSheets | sed 's/<\/head>//g' );
 scripts=$(sed "${lineToScripts}q;d" $pathToIndex);
 scripts=$(echo $scripts | sed 's/<\/body>//g' );
 
-echo $styleSheets > "$pathToPartials/_AppStyleSheetsProd.cshtml";
+# echo $styleSheets > "$pathToPartials/_AppStyleSheetsProd.cshtml";
+# echo "Created prod prartials for _AppStyleSheetsProd.cshtml";
+
 echo $scripts > "$pathToPartials/_AppScriptsProd.cshtml"
-echo "Created prod prartials for _AppStyleSheetsProd.cshtml & _AppScriptsProd.cshtml";
+echo "Created prod prartials for _AppScriptsProd.cshtml";

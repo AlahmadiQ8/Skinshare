@@ -17,6 +17,8 @@ using Microsoft.Extensions.Hosting;
 using Skinshare.Data;
 using Skinshare.Data.Interfaces;
 using Skinshare.Data.Services;
+using Microsoft.AspNetCore.HttpOverrides;
+using Npgsql;
 
 namespace Skinshare.Web
 {
@@ -63,6 +65,11 @@ namespace Skinshare.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             // app.UseHttpsRedirection();
             app.UseStaticFiles();
