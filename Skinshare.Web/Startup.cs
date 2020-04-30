@@ -24,9 +24,12 @@ namespace Skinshare.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -41,15 +44,18 @@ namespace Skinshare.Web
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerDocument();
             services.AddHealthChecks();
-            services.AddDbContextPool<RoutineContext>(options => { options.UseNpgsql(Configuration.GetConnectionString("Skinshare")); });
+            if (_env.IsDevelopment())
+            {
+                services.AddDbContextPool<RoutineContext>(options => { options.UseNpgsql(Configuration.GetConnectionString("Skinshare")); });
+            } else if (_env.IsProduction())
+            {
+                services.AddDbContextPool<RoutineContext>(options => { options.UseNpgsql(Configuration["ConnectionString"]); });
+            }
             services.AddScoped(typeof(IAsyncRepository<>), typeof(SqlRepository<>));
             services.AddScoped<IRoutineService, RoutineService>();
             services.AddScoped<IStepService, StepService>();
             services.AddDataProtection()
-                .PersistKeysToAWSSystemsManager("/Skinshare/DataProtection", options =>
-                {
-                    options.TierStorageMode = TierStorageMode.StandardOnly;
-                });
+                .PersistKeysToAWSSystemsManager("/Skinshare/DataProtection", options => { options.TierStorageMode = TierStorageMode.StandardOnly; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,12 +86,12 @@ namespace Skinshare.Web
                     FileProvider = new PhysicalFileProvider(
                         Path.Combine(Directory.GetCurrentDirectory(), "ClientApp/dist")),
                     RequestPath = "/ClientApp/dist"
-                }); 
+                });
             }
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
-            
+
             app.Use(CsrfMiddleware);
 
             app.UseRouting();
@@ -109,7 +115,7 @@ namespace Skinshare.Web
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 });
             }
-            
+
             async Task CsrfMiddleware(HttpContext context, Func<Task> next)
             {
                 var path = context.Request.Path.Value;
@@ -118,13 +124,12 @@ namespace Skinshare.Web
                     // The request token can be sent as a JavaScript-readable cookie, 
                     // and Angular uses it by default.
                     var tokens = antiforgery.GetAndStoreTokens(context);
-                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, 
-                        new CookieOptions() { HttpOnly = false });
+                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                        new CookieOptions() {HttpOnly = false});
                 }
 
                 await next.Invoke();
             }
         }
-        
     }
 }
