@@ -19,3 +19,6 @@ cd Skinshare.Web && dotnet publish -c Release -o publish && cd ..
 
 # Execute Docker
 docker build --rm -f "Skinshare.Web/Dockerfile" -t skinshare "Skinshare.Web"
+
+# build nginx
+docker build --rm -f "reverseproxy/Dockerfile" -t reverseproxy "reverseproxy"
