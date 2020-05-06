@@ -44,7 +44,7 @@
       "allowNullableBodyParameters": true,
       "output": null,
       "outputType": "Swagger2",
-      "assemblyPaths": ["/Users/momo/Dev/SkinshareV2/Skinshare.Web/bin/Debug/netcoreapp3.1/Skinshare.Web.dll"],
+      "assemblyPaths": ["$(NSwagDllDir)"],
       "assemblyConfig": null,
       "referencePaths": [],
       "useNuGetCache": false
@@ -106,7 +106,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "./ClientApp/src/app/app.generated.ts"
+      "output": "$(NSwagOutputDir)/app.generated.ts"
     }
   }
 }

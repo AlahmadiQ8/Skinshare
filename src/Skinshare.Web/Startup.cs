@@ -77,17 +77,7 @@ namespace Skinshare.Web
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            // app.UseHttpsRedirection();
             app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(
-                        Path.Combine(Directory.GetCurrentDirectory(), "ClientApp/dist")),
-                    RequestPath = "/ClientApp/dist"
-                });
-            }
 
             app.UseOpenApi();
             app.UseSwaggerUi3();

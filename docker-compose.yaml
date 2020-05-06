@@ -16,14 +16,14 @@ services:
     depends_on: 
       - db
     build:
-      context: Skinshare.Web
+      context: src
       dockerfile: Dockerfile
     restart: always
     expose:
       - "5000"
     environment: {
       ASPNETCORE_URLS: http://+:5000,
-      ConnectionString: "Host=localhost;Port=5432;Database=skinshare;Username=postgres;Password=docker;Pooling=true;Minimum Pool Size=0;Maximum Pool Size=100;Connection Idle Lifetime=300;Internal Command Timeout=15;"
+      ConnectionString: "Host=db;Port=5432;Database=skinshare;Username=postgres;Password=docker;Pooling=true;Minimum Pool Size=0;Maximum Pool Size=100;Connection Idle Lifetime=300;Internal Command Timeout=15;"
     }
     volumes:
       - $HOME/.aws:/root/.aws

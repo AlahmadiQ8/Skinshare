@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A light foundation for your next frontend project based on webpack.",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js  --colors",
+    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js --colors && rm build/*.html",
     "start": "webpack-dev-server --open --config webpack/webpack.config.dev.js",
     "copy-to-wwwroot": "npm run build && rm -f ../wwwroot/*.{css,js,map} && cp build/*.{js,css,map} ../wwwroot/ && cp -r build/public ../wwwroot/",
     "gh-pages": "npm run build && gh-pages -d build"

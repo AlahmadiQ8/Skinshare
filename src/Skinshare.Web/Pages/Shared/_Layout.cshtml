@@ -13,7 +13,7 @@
     }
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,400i,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" asp-href-include="~/bundle.*.css"/>
+    <link rel="stylesheet" asp-href-include="~/assets/bundle.*.css"/>
     @RenderSection("StyleSheets", required: false)
 </head>
 <body class="mdc-typography d-flex flex-column h-100 bg-surface">
@@ -79,6 +79,6 @@
 </footer>
 
 @RenderSection("Scripts", required: false)
-<script asp-src-include="~/app*.js" asp-append-version="true"></script>
+<script asp-src-include="~/assets/app*.js" asp-append-version="true"></script>
 </body>
 </html>
