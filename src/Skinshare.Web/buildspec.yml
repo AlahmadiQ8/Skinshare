@@ -1,0 +1,35 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 19
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - SKINSHARE_URI=903520281285.dkr.ecr.us-east-1.amazonaws.com/skinshare
+      - REVERSEPROXY_URI=903520281285.dkr.ecr.us-east-1.amazonaws.com/reverseproxy
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $SKINSHARE_URI:latest -f src/Dockerfile src
+      - docker build -t $REVERSEPROXY_URI:latest -f reverseproxy/Dockerfile reverseproxy 
+      - docker tag $SKINSHARE_URI:latest $SKINSHARE_URI:$IMAGE_TAG
+      - docker tag $REVERSEPROXY_URI:latest $REVERSEPROXY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $SKINSHARE_URI:latest
+      - docker push $SKINSHARE_URI:$IMAGE_TAG
+      - docker push $REVERSEPROXY_URI:latest
+      - docker push $REVERSEPROXY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"skinshare","imageUri":"%s"},{"name":"reverseproxy","imageUri":"%s"}]' $SKINSHARE_URI:$IMAGE_TAG $REVERSEPROXY_URI:$IMAGE_TAG > imagedefinitions.json
+artifacts:
+    files: imagedefinitions.json
