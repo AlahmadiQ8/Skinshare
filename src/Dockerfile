@@ -21,7 +21,7 @@ WORKDIR /app/Skinshare.Web
 RUN dotnet publish -c Release -o out
 # run nswag 
 RUN dotnet msbuild -target:NSwag  \
-    -property:NSwagDllDir=./publish/Skinshare.Web.dll \
+    -property:NSwagDllDir=out/Skinshare.Web.dll \
     -property:NSwagOutputDir=. 
 
 # ----- ANGULAR ----- # 
